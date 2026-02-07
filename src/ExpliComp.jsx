@@ -399,7 +399,7 @@ const FeatureCard = ({ icon: Icon, title, desc, delay }) => (
     whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(35, 181, 181, 0.2)" }}
     className="bg-slate-900/50 border border-slate-800 p-8 rounded-2xl hover:border-[#23b5b5]/30 transition-all group relative overflow-hidden"
   >
-    <div className="absolute inset-0 w-full h-full opacity-5 bg-gradient-to-br from-[#23b5b5] to-transparent pointer-events-none" />
+    <div className="absolute inset-0 w-full h-full opacity-5 bg-linear-to-br from-[#23b5b5] to-transparent pointer-events-none" />
     <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#23b5b5]/10 transition-colors">
       <Icon className="text-slate-400 group-hover:text-[#23b5b5] transition-colors" />
     </div>
@@ -478,7 +478,7 @@ const BYOKSection = () => (
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="relative"
       >
-        <div className="absolute -inset-1 bg-gradient-to-tr from-[#23b5b5] via-cyan-500 to-slate-900 rounded-3xl opacity-40 blur-xl" />
+        <div className="absolute -inset-1 bg-linear-to-tr from-[#23b5b5] via-cyan-500 to-slate-900 rounded-3xl opacity-40 blur-xl" />
         <div className="relative bg-slate-950 border border-slate-800 rounded-3xl p-6 md:p-8 shadow-2xl">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
@@ -564,7 +564,7 @@ const BYOKSection = () => (
 // --- Pricing Section (Coming Soon, no numbers) ---
 const PricingSection = ({ hovered, setHovered }) => (
   <AnimatedSection
-    className="py-24 bg-gradient-to-b from-slate-950 to-[#020617] border-t border-slate-900 w-full"
+    className="py-24 bg-linear-to-b from-slate-950 to-[#020617] border-t border-slate-900 w-full"
     delay={0.1}
   >
     <div id="pricing" className="text-center mb-14">
@@ -748,7 +748,7 @@ const Expli = () => {
   return (
     <div className="min-h-screen bg-[#020617] text-white font-sans selection:bg-[#23b5b5]/30 relative w-full overflow-x-hidden">
       {/* Background Grid and Floating Blobs */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(35,181,181,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(35,181,181,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(35,181,181,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(35,181,181,0.03)_1px,transparent_1px)] bg-size-[40px_40px] pointer-events-none" />
 
       <FloatingBlob
         size="600px"
@@ -785,7 +785,7 @@ const Expli = () => {
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-5xl md:text-7xl font-bold leading-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-400"
+              className="text-5xl md:text-7xl font-bold leading-tight mb-6 bg-clip-text text-transparent bg-linear-to-b from-white to-slate-400"
             >
               <span className="whitespace-nowrap">
                 A Powerful Virtual Assistant
@@ -836,7 +836,7 @@ const Expli = () => {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className="absolute -inset-1 rounded-full opacity-70 blur-md bg-gradient-to-r from-[#0e6565] to-[#23b5b5]"
+                  className="absolute -inset-1 rounded-full opacity-70 blur-md bg-linear-to-r from-[#0e6565] to-[#23b5b5]"
                 />
 
                 {/* Main pill */}
@@ -854,7 +854,7 @@ const Expli = () => {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className="relative bg-gradient-to-r from-[#11a493] to-[#0c9191] 
+                  className="relative bg-linear-to-r from-[#11a493] to-[#0c9191] 
              border border-[#5eead4]/30 
              rounded-full px-7 py-3 shadow-[0_8px_30px_rgba(20,184,166,0.35)] 
              flex items-center justify-center"
@@ -953,7 +953,7 @@ const Expli = () => {
       </main>
 
       {/* Features Grid */}
-      <AnimatedSection className="py-24 bg-gradient-to-b from-[#020617] to-slate-950 w-full">
+      <AnimatedSection className="py-24 bg-linear-to-b from-[#020617] to-slate-950 w-full">
         <div className="text-center mb-16">
           <motion.span
             initial={{ opacity: 0, y: 10 }}

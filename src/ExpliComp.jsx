@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import {
   Sparkles,
   Bot,
@@ -26,8 +26,10 @@ import {
   Linkedin,
   Youtube,
   Twitter,
-} from 'lucide-react';
-import logo from "../src/expli1-logo.png"
+} from "lucide-react";
+import logo from "../src/expli1-logo.png";
+import mainlogo from "../src/Explified_logo.png";
+import { useState } from "react";
 
 // --- Configuration ---
 // Base Color: #23b5b5 (Cyan)
@@ -37,21 +39,35 @@ const ExpliHeader = () => {
     <motion.header
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      className="sticky top-0 z-50 w-full bg-[#020617]/80 backdrop-blur-md border-b border-white/5"
+      className="fixed top-0 z-50 w-full bg-[#020617]/80 backdrop-blur-md border-b border-white/5"
     >
       {/* Content wrapper to center items, but header background is full width */}
-      <div className="flex items-center justify-between px-4 sm:px-6 py-4 max-w-7xl mx-auto w-full">
+      <div className="grid grid-cols-3 items-center  px-4 sm:px-6 py-4 max-w-7xl mx-auto w-full">
         {/* Logo */}
-        <a href='https://explified.com/' className="flex items-center space-x-2">
+        <a
+          href="https://explified.com/"
+          className="flex items-center space-x-2 justify-self-start"
+        >
           <div className="bg-[#23b5b5]/10 p-1 rounded-lg">
             <img src={logo} className="h-12 w-12 text-[#23b5b5]" />
-
           </div>
-          <span className="text-xl font-bold tracking-wide text-white">Expli</span>
+          <span className="text-xl font-bold tracking-wide text-white">
+            Expli
+          </span>
+          <span className="text-xs md:text-sm font-semibold text-[#23b5b5] tracking-normal">
+            <a
+              href="https://explified.com"
+              rel="noopener noreferrer"
+              className="text-[13px] font-medium tracking-wide"
+              style={{ color: "#1B8F8F" }}
+            >
+              by Explified
+            </a>
+          </span>
         </a>
 
         {/* Nav links – scroll to sections on the same page */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-8 justify-self-center">
           <a
             href="#integrations"
             className="text-sm font-medium text-slate-400 hover:text-white transition-colors"
@@ -79,14 +95,14 @@ const ExpliHeader = () => {
         </nav>
 
         {/* Sign in only – brand color button */}
-        <div className="flex items-center">
+        <div className="flex items-center justify-self-end">
           <a
             href="https://app.explified.com/expli"
             target="_blank"
             rel="noreferrer"
             className="px-5 py-2 text-sm font-semibold rounded-full bg-[#23b5b5] text-[#020617] hover:bg-[#1e9d9d] transition-colors shadow-lg"
           >
-           Login
+            Try now
           </a>
         </div>
       </div>
@@ -94,14 +110,13 @@ const ExpliHeader = () => {
   );
 };
 
-
 // --- Floating Blob Component for Ambient Background Animation ---
 const FloatingBlob = ({ size, color, top, left, duration, delay }) => (
   <motion.div
     initial={{ opacity: 0.3, scale: 0.8 }}
     animate={{
-      y: ['0%', '10%', '0%'],
-      x: ['0%', '5%', '0%'],
+      y: ["0%", "10%", "0%"],
+      x: ["0%", "5%", "0%"],
       scale: [0.9, 1.1, 0.9],
       opacity: [0.3, 0.6, 0.3],
       rotate: [0, 30, 0],
@@ -109,7 +124,7 @@ const FloatingBlob = ({ size, color, top, left, duration, delay }) => (
     transition={{
       duration: duration,
       repeat: Infinity,
-      ease: 'easeInOut',
+      ease: "easeInOut",
       delay: delay,
     }}
     className="absolute rounded-full pointer-events-none filter blur-3xl mix-blend-screen opacity-50"
@@ -125,12 +140,17 @@ const FloatingBlob = ({ size, color, top, left, duration, delay }) => (
 );
 
 // --- Reusable Animated Section Wrapper ---
-const AnimatedSection = ({ children, className, delay = 0.1, duration = 0.8 }) => (
+const AnimatedSection = ({
+  children,
+  className,
+  delay = 0.1,
+  duration = 0.8,
+}) => (
   <motion.section
     initial={{ opacity: 0, y: 50 }}
     whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: '-100px' }}
-    transition={{ duration: duration, ease: 'easeOut', delay: delay }}
+    viewport={{ once: true, margin: "-100px" }}
+    transition={{ duration: duration, ease: "easeOut", delay: delay }}
     className={className}
   >
     <div className="max-w-7xl mx-auto px-4 sm:px-6">{children}</div>
@@ -168,10 +188,10 @@ const ConnectingLine = ({ from, to, curvature = 50, delay = 0 }) => {
         transition={{
           duration: 3,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: "easeInOut",
           delay: delay,
         }}
-        style={{ strokeLinecap: 'round' }}
+        style={{ strokeLinecap: "round" }}
       />
       {/* Floating Orb */}
       <motion.circle r="3" fill="#23b5b5" filter="url(#glow)">
@@ -213,7 +233,9 @@ const BotResponseCard = ({ style }) => (
     </div>
     <div className="space-y-3">
       <div className="bg-slate-800/50 p-2 rounded-lg">
-        <p className="text-xs text-slate-300">How many payment methods for this?</p>
+        <p className="text-xs text-slate-300">
+          How many payment methods for this?
+        </p>
       </div>
       <div className="flex gap-2">
         <span className="px-2 py-1 rounded-full bg-[#23b5b5]/10 text-[#23b5b5] text-[10px] border border-[#23b5b5]/20">
@@ -245,9 +267,9 @@ const UserListCard = ({ style }) => (
     </div>
     <div className="space-y-3">
       {[
-        { name: 'James Lamo', role: 'james@mail.com', bg: 'bg-purple-500' },
-        { name: 'Stevie Wonder', role: 'stevie@mail.com', bg: 'bg-yellow-500' },
-        { name: 'Mick Dral', role: 'mick@mail.com', bg: 'bg-green-500' },
+        { name: "James Lamo", role: "james@mail.com", bg: "bg-purple-500" },
+        { name: "Stevie Wonder", role: "stevie@mail.com", bg: "bg-yellow-500" },
+        { name: "Mick Dral", role: "mick@mail.com", bg: "bg-green-500" },
       ].map((u, i) => (
         <div key={i} className="flex items-center gap-3">
           <div
@@ -275,28 +297,30 @@ const ChatListHistory = ({ style }) => (
     className="absolute left-1/2 -translate-x-1/2 top-[450px] w-[90%] md:w-[400px] bg-[#0f172a]/90 backdrop-blur-xl border border-slate-800 rounded-2xl p-4 shadow-2xl z-20"
   >
     <div className="flex justify-between items-center mb-3">
-      <span className="text-xs font-medium text-slate-400">Question list history</span>
+      <span className="text-xs font-medium text-slate-400">
+        Question list history
+      </span>
       <div className="w-4 h-4 rounded-full border border-slate-600" />
     </div>
     <div className="space-y-3">
       {[
         {
-          q: 'How many payment methods for this?',
-          time: 'Just now',
+          q: "How many payment methods for this?",
+          time: "Just now",
           icon: User,
-          color: 'text-blue-400',
+          color: "text-blue-400",
         },
         {
-          q: 'I need you, help with this',
-          time: '2 min ago',
+          q: "I need you, help with this",
+          time: "2 min ago",
           icon: Bot,
-          color: 'text-[#23b5b5]',
+          color: "text-[#23b5b5]",
         },
         {
-          q: 'Hello would like to know more information...',
-          time: '5 min ago',
+          q: "Hello would like to know more information...",
+          time: "5 min ago",
           icon: User,
-          color: 'text-blue-400',
+          color: "text-blue-400",
         },
       ].map((item, i) => (
         <div
@@ -348,7 +372,9 @@ const SentimentScoreCard = ({ style }) => (
     className="absolute right-4 top-[500px] md:right-[5%] md:top-[580px] w-44 bg-[#0f172a]/90 backdrop-blur-xl border border-slate-800 rounded-xl p-4 shadow-2xl z-20"
   >
     <div className="flex items-center justify-between mb-3">
-      <span className="text-xs font-medium text-slate-400">Sentiment Score</span>
+      <span className="text-xs font-medium text-slate-400">
+        Sentiment Score
+      </span>
       <TrendingUp size={14} className="text-yellow-400" />
     </div>
     <p className="text-3xl font-bold text-white mb-1 flex items-baseline">
@@ -368,9 +394,9 @@ const FeatureCard = ({ icon: Icon, title, desc, delay }) => (
   <motion.div
     initial={{ opacity: 0, y: 50, scale: 0.8 }}
     whileInView={{ opacity: 1, y: 0, scale: 1 }}
-    viewport={{ once: true, margin: '-100px' }}
-    transition={{ duration: 0.7, ease: 'easeOut', delay: delay }}
-    whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(35, 181, 181, 0.2)' }}
+    viewport={{ once: true, margin: "-100px" }}
+    transition={{ duration: 0.7, ease: "easeOut", delay: delay }}
+    whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(35, 181, 181, 0.2)" }}
     className="bg-slate-900/50 border border-slate-800 p-8 rounded-2xl hover:border-[#23b5b5]/30 transition-all group relative overflow-hidden"
   >
     <div className="absolute inset-0 w-full h-full opacity-5 bg-gradient-to-br from-[#23b5b5] to-transparent pointer-events-none" />
@@ -388,7 +414,10 @@ const BYOKSection = () => (
     className="py-24 bg-[#020617] border-t border-slate-900 w-full"
     delay={0.1}
   >
-    <div id="product" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <div
+      id="product"
+      className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+    >
       <div>
         <motion.span
           initial={{ opacity: 0, y: 10 }}
@@ -417,8 +446,9 @@ const BYOKSection = () => (
           transition={{ delay: 0.2 }}
           className="text-slate-400 mt-4 text-lg max-w-xl"
         >
-          Plug in your own OpenAI, Anthropic, or other LLM keys. Expli orchestrates conversations, logging, and
-          analytics — your usage and billing stay with your own provider.
+          Plug in your own OpenAI, Anthropic, or other LLM keys. Expli
+          orchestrates conversations, logging, and analytics — your usage and
+          billing stay with your own provider.
         </motion.p>
 
         <motion.ul
@@ -429,9 +459,9 @@ const BYOKSection = () => (
           className="mt-6 space-y-3 text-sm text-slate-300"
         >
           {[
-            'Keys are stored encrypted-at-rest with rotation.',
-            'Per-environment keys (dev, staging, production).',
-            'Fine-grained control on which bots use which key.',
+            "Keys are stored encrypted-at-rest with rotation.",
+            "Per-environment keys (dev, staging, production).",
+            "Fine-grained control on which bots use which key.",
           ].map((item) => (
             <li key={item} className="flex items-start gap-2">
               <CheckCircle className="w-4 h-4 text-[#23b5b5] mt-0.5" />
@@ -445,7 +475,7 @@ const BYOKSection = () => (
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         whileInView={{ opacity: 1, scale: 1, y: 0 }}
         viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
         className="relative"
       >
         <div className="absolute -inset-1 bg-gradient-to-tr from-[#23b5b5] via-cyan-500 to-slate-900 rounded-3xl opacity-40 blur-xl" />
@@ -457,7 +487,9 @@ const BYOKSection = () => (
               </div>
               <div>
                 <div className="text-xs text-slate-400">Key Manager</div>
-                <div className="text-sm text-slate-200">Production workspace</div>
+                <div className="text-sm text-slate-200">
+                  Production workspace
+                </div>
               </div>
             </div>
             <span className="px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-semibold">
@@ -469,25 +501,27 @@ const BYOKSection = () => (
             <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-4">
               <div className="flex justify-between items-center mb-3">
                 <span className="text-xs text-slate-400">Connected Models</span>
-                <span className="text-[10px] text-slate-500">Auto-rotate enabled</span>
+                <span className="text-[10px] text-slate-500">
+                  Auto-rotate enabled
+                </span>
               </div>
               <div className="grid grid-cols-3 gap-3 text-xs">
                 {[
-                  { name: 'OpenAI', short: 'openai', active: true },
-                  { name: 'Anthropic', short: 'claude', active: true },
-                  { name: 'Custom', short: 'proxy', active: false },
+                  { name: "OpenAI", short: "openai", active: true },
+                  { name: "Anthropic", short: "claude", active: true },
+                  { name: "Custom", short: "proxy", active: false },
                 ].map((m) => (
                   <div
                     key={m.name}
                     className={`rounded-xl px-3 py-2 border flex flex-col gap-1 ${
                       m.active
-                        ? 'border-[#23b5b5]/60 bg-[#23b5b5]/5'
-                        : 'border-slate-700 bg-slate-900/50'
+                        ? "border-[#23b5b5]/60 bg-[#23b5b5]/5"
+                        : "border-slate-700 bg-slate-900/50"
                     }`}
                   >
                     <span
                       className={`text-[10px] uppercase tracking-wide ${
-                        m.active ? 'text-[#23b5b5]' : 'text-slate-500'
+                        m.active ? "text-[#23b5b5]" : "text-slate-500"
                       }`}
                     >
                       {m.short}
@@ -501,15 +535,23 @@ const BYOKSection = () => (
             <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 flex flex-col gap-3">
               <div className="flex justify-between items-center">
                 <span className="text-xs text-slate-400">Usage routing</span>
-                <span className="text-[10px] text-slate-500">Per-bot rules</span>
+                <span className="text-[10px] text-slate-500">
+                  Per-bot rules
+                </span>
               </div>
               <div className="flex items-center justify-between text-[11px]">
                 <span className="text-slate-300">Support Bot → OpenAI</span>
-                <span className="px-2 py-1 rounded-full bg-slate-800 text-slate-400">Default</span>
+                <span className="px-2 py-1 rounded-full bg-slate-800 text-slate-400">
+                  Default
+                </span>
               </div>
               <div className="flex items-center justify-between text-[11px]">
-                <span className="text-slate-300">Analytics Bot → Anthropic</span>
-                <span className="px-2 py-1 rounded-full bg-slate-800 text-slate-400">High context</span>
+                <span className="text-slate-300">
+                  Analytics Bot → Anthropic
+                </span>
+                <span className="px-2 py-1 rounded-full bg-slate-800 text-slate-400">
+                  High context
+                </span>
               </div>
             </div>
           </div>
@@ -520,7 +562,7 @@ const BYOKSection = () => (
 );
 
 // --- Pricing Section (Coming Soon, no numbers) ---
-const PricingSection = () => (
+const PricingSection = ({ hovered, setHovered }) => (
   <AnimatedSection
     className="py-24 bg-gradient-to-b from-slate-950 to-[#020617] border-t border-slate-900 w-full"
     delay={0.1}
@@ -550,39 +592,54 @@ const PricingSection = () => (
         transition={{ delay: 0.2 }}
         className="text-slate-400 mt-4 max-w-xl mx-auto"
       >
-        We&apos;re finalizing pricing that works for teams of every size. No hidden fees, no surprise add-ons.
+        We&apos;re finalizing pricing that works for teams of every size. No
+        hidden fees, no surprise add-ons.
       </motion.p>
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
       {[
         {
-          name: 'Starter',
-          badge: 'For early teams',
-          perks: ['Single workspace', 'Basic analytics', 'Up to a few team members'],
+          name: "Starter",
+          badge: "For early teams",
+          perks: [
+            "Single workspace",
+            "Basic analytics",
+            "Up to a few team members",
+          ],
         },
         {
-          name: 'Growth',
-          badge: 'Most flexible',
+          name: "Growth",
+          badge: "Most flexible",
           highlight: true,
-          perks: ['Multiple workspaces', 'Advanced analytics', 'Priority routing & BYOK'],
+          perks: [
+            "Multiple workspaces",
+            "Advanced analytics",
+            "Priority routing & BYOK",
+          ],
         },
         {
-          name: 'Enterprise',
-          badge: 'Custom rollouts',
-          perks: ['Dedicated support', 'Custom data residency', 'Security reviews & SSO'],
+          name: "Enterprise",
+          badge: "Custom rollouts",
+          perks: [
+            "Dedicated support",
+            "Custom data residency",
+            "Security reviews & SSO",
+          ],
         },
       ].map((plan, idx) => (
         <motion.div
           key={plan.name}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ delay: 0.1 * idx }}
-          className={`relative rounded-3xl border p-8 flex flex-col gap-5 bg-slate-950/80 ${
-            plan.highlight
-              ? 'border-[#23b5b5] shadow-[0_0_40px_rgba(35,181,181,0.3)]'
-              : 'border-slate-800'
+          whileHover={{ scale: 1.03 }}
+          onHoverStart={() => setHovered(idx)}
+          onHoverEnd={() => setHovered(1)}
+          viewport={{ once: true, margin: "-100px" }}
+          className={`relative rounded-3xl border p-8 flex flex-col gap-5 bg-slate-950/80 transition-all duration-300 ${
+            hovered === idx
+              ? "border-[#23b5b5] shadow-[0_0_40px_rgba(35,181,181,0.35)]"
+              : "border-slate-800"
           }`}
         >
           {plan.highlight && (
@@ -613,8 +670,8 @@ const PricingSection = () => (
             rel="noreferrer"
             className={`mt-4 inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-semibold transition-all ${
               plan.highlight
-                ? 'bg-[#23b5b5] text-slate-900 hover:bg-[#1fa0a0]'
-                : 'bg-slate-900 text-slate-100 hover:bg-slate-800'
+                ? "bg-[#23b5b5] text-slate-900 hover:bg-[#1fa0a0]"
+                : "bg-slate-900 text-slate-100 hover:bg-slate-800"
             }`}
           >
             Notify me
@@ -630,6 +687,9 @@ const PricingSection = () => (
 
 const Expli = () => {
   const { scrollYProgress } = useScroll();
+  const [hovered, setHovered] = useState(1);
+
+  console.log(hovered);
 
   // Transforms for hero cards
   const card1Y = useTransform(scrollYProgress, [0, 0.4], [0, -100]);
@@ -655,11 +715,31 @@ const Expli = () => {
   const card5Rotate = useTransform(scrollYProgress, [0, 0.4], [0, 3]);
   const card5Opacity = useTransform(scrollYProgress, [0.1, 0.4], [1, 0.6]);
 
-  const card1Style = { y: card1Y, x: card1X, rotate: card1Rotate, opacity: card1Opacity };
-  const card2Style = { y: card2Y, x: card2X, rotate: card2Rotate, opacity: card2Opacity };
+  const card1Style = {
+    y: card1Y,
+    x: card1X,
+    rotate: card1Rotate,
+    opacity: card1Opacity,
+  };
+  const card2Style = {
+    y: card2Y,
+    x: card2X,
+    rotate: card2Rotate,
+    opacity: card2Opacity,
+  };
   const card3Style = { y: card3Y, opacity: card3Opacity };
-  const card4Style = { y: card4Y, x: card4X, rotate: card4Rotate, opacity: card4Opacity };
-  const card5Style = { y: card5Y, x: card5X, rotate: card5Rotate, opacity: card5Opacity };
+  const card4Style = {
+    y: card4Y,
+    x: card4X,
+    rotate: card4Rotate,
+    opacity: card4Opacity,
+  };
+  const card5Style = {
+    y: card5Y,
+    x: card5X,
+    rotate: card5Rotate,
+    opacity: card5Opacity,
+  };
 
   // CTA transforms
   const ctaScale = useTransform(scrollYProgress, [0, 0.2], [1, 1.05]);
@@ -670,113 +750,168 @@ const Expli = () => {
       {/* Background Grid and Floating Blobs */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(35,181,181,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(35,181,181,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
 
-      <FloatingBlob size="600px" color="#23b5b5" top="5%" left="5%" duration={18} delay={0} />
-      <FloatingBlob size="400px" color="#4f46e5" top="30%" left="70%" duration={15} delay={5} />
-      <FloatingBlob size="300px" color="#f97316" top="60%" left="30%" duration={12} delay={10} />
+      <FloatingBlob
+        size="600px"
+        color="#23b5b5"
+        top="5%"
+        left="5%"
+        duration={18}
+        delay={0}
+      />
+      <FloatingBlob
+        size="400px"
+        color="#4f46e5"
+        top="30%"
+        left="70%"
+        duration={15}
+        delay={5}
+      />
+      <FloatingBlob
+        size="300px"
+        color="#f97316"
+        top="60%"
+        left="30%"
+        duration={12}
+        delay={10}
+      />
 
       <ExpliHeader />
 
       {/* Hero Section */}
-      <main className="relative pt-20 pb-40 min-h-[1000px] w-full">
+      <main className="relative pt-40 pb-40 min-h-[1000px] w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           {/* Main Text Content */}
-          <div className="relative z-30 text-center max-w-4xl mx-auto mb-16">
+          <div className="relative z-30 text-center max-w-6xl mx-auto mb-16">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-5xl md:text-7xl font-bold leading-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-400"
             >
-              A Powerful Virtual Assistant
+              <span className="whitespace-nowrap">
+                A Powerful Virtual Assistant
+              </span>
               <br />
-              With <span className="text-[#23b5b5]">AI Powered.</span>
+              With <span className="text-[#23b5b5]">AI Power.</span>
             </motion.h1>
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               className="text-base text-slate-400 mb-8 max-w-xl mx-auto"
             >
-              Help your virtual assistant without headaches, supported by AI technology.
+              Help your virtual assistant without headaches, supported by AI
+              technology.
             </motion.p>
           </div>
 
           {/* Central Interaction Area */}
           <div className="relative w-full max-w-[1000px] mx-auto h-[600px]">
-            {/* Central CTA (replaces email with Coming Soon button) */}
-{/* Central CTA – single Coming Soon pill */}
-<motion.div
-  initial={{ scale: 0.9, opacity: 0 }}
-  animate={{ scale: 1, opacity: 1 }}
-  transition={{ delay: 0.2 }}
-  style={{ scale: ctaScale, y: ctaY }}
-  className="absolute left-1/2 -translate-x-1/2 top-0 w-full max-w-md z-30"
->
-  <a
-    href="https://app.explified.com/expli"
-    target="_blank"
-    rel="noreferrer"
-    className="relative group block"
-  >
-    {/* Animated glow border */}
-    <motion.div
-      animate={{
-        boxShadow: [
-          '0 0 10px rgba(14,101,101,0.2)',
-          '0 0 25px rgba(14,101,101,0.6)',
-          '0 0 10px rgba(14,101,101,0.2)',
-        ],
-        scale: [1, 1.02, 1],
-      }}
-      transition={{
-        duration: 2.5,
-        repeat: Infinity,
-        ease: 'easeInOut',
-      }}
-      className="absolute -inset-1 rounded-full opacity-70 blur-md bg-gradient-to-r from-[#0e6565] to-[#23b5b5]"
-    />
+            {/* Central CTA – single Coming Soon pill */}
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              style={{ scale: ctaScale, y: ctaY }}
+              className="absolute left-1/2 -translate-x-1/2 top-0 w-full max-w-md z-30"
+            >
+              <a
+                href="https://app.explified.com/expli"
+                target="_blank"
+                rel="noreferrer"
+                className="relative group block"
+              >
+                {/* Animated glow border */}
+                <motion.div
+                  animate={{
+                    boxShadow: [
+                      "0 0 10px rgba(14,101,101,0.2)",
+                      "0 0 25px rgba(14,101,101,0.6)",
+                      "0 0 10px rgba(14,101,101,0.2)",
+                    ],
+                    scale: [1, 1.02, 1],
+                  }}
+                  transition={{
+                    duration: 2.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute -inset-1 rounded-full opacity-70 blur-md bg-gradient-to-r from-[#0e6565] to-[#23b5b5]"
+                />
 
-    {/* Main pill */}
-    <motion.div
-      whileHover={{
-        scale: 1.07,
-        backgroundColor: '#0b4f4f',
-        boxShadow: '0 10px 30px rgba(14,101,101,0.4)',
-      }}
-      animate={{
-        y: ['0px', '-6px', '0px'], // floating effect
-      }}
-      transition={{
-        duration: 3,
-        repeat: Infinity,
-        ease: 'easeInOut',
-      }}
-      className="relative bg-[#0e6565] border border-white/5 rounded-full px-7 py-3 shadow-xl flex items-center justify-center"
-    >
-      <span className="text-sm font-semibold text-white tracking-wide">
-        Coming Soon
-      </span>
+                {/* Main pill */}
+                <motion.div
+                  whileHover={{
+                    scale: 1.07,
+                    backgroundColor: "#0b3f3f",
+                    boxShadow: "0 12px 35px rgba(35,181,181,0.45)",
+                  }}
+                  animate={{
+                    y: ["0px", "-6px", "0px"],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="relative bg-gradient-to-r from-[#11a493] to-[#0c9191] 
+             border border-[#5eead4]/30 
+             rounded-full px-7 py-3 shadow-[0_8px_30px_rgba(20,184,166,0.35)] 
+             flex items-center justify-center"
+                >
+                  <span className="text-sm font-semibold text-black tracking-wide">
+                    Try now
+                  </span>
 
-      {/* Tiny shimmer dot */}
-      <motion.div
-        animate={{ opacity: [0.3, 1, 0.3] }}
-        transition={{ duration: 1.8, repeat: Infinity }}
-        className="absolute right-3 w-2 h-2 rounded-full bg-[#23b5b5]/60"
-      />
-    </motion.div>
-  </a>
-</motion.div>
-
+                  <motion.div
+                    animate={{ opacity: [0.3, 1, 0.3] }}
+                    transition={{ duration: 1.8, repeat: Infinity }}
+                    className="absolute right-3 w-2 h-2 rounded-full bg-white/70"
+                  />
+                </motion.div>
+              </a>
+            </motion.div>
 
             {/* Connecting Lines */}
             <div className="absolute inset-0 pointer-events-none z-10 hidden md:block">
-              <ConnectingLine from={{ x: 500, y: 35 }} to={{ x: 200, y: 200 }} curvature={-100} delay={0} />
-              <ConnectingLine from={{ x: 500, y: 35 }} to={{ x: 800, y: 200 }} curvature={100} delay={1.5} />
-              <ConnectingLine from={{ x: 500, y: 35 }} to={{ x: 500, y: 450 }} curvature={0} delay={0.8} />
+              <ConnectingLine
+                from={{ x: 500, y: 35 }}
+                to={{ x: 200, y: 200 }}
+                curvature={-100}
+                delay={0}
+              />
+              <ConnectingLine
+                from={{ x: 500, y: 35 }}
+                to={{ x: 800, y: 200 }}
+                curvature={100}
+                delay={1.5}
+              />
+              <ConnectingLine
+                from={{ x: 500, y: 35 }}
+                to={{ x: 500, y: 450 }}
+                curvature={0}
+                delay={0.8}
+              />
 
-              <ConnectingLine from={{ x: 500, y: 450 }} to={{ x: 150, y: 580 }} curvature={-50} delay={2.5} />
-              <ConnectingLine from={{ x: 500, y: 450 }} to={{ x: 850, y: 610 }} curvature={50} delay={3.5} />
+              <ConnectingLine
+                from={{ x: 500, y: 450 }}
+                to={{ x: 150, y: 580 }}
+                curvature={-50}
+                delay={2.5}
+              />
+              <ConnectingLine
+                from={{ x: 500, y: 450 }}
+                to={{ x: 850, y: 610 }}
+                curvature={50}
+                delay={3.5}
+              />
 
-              <ConnectingLine from={{ x: 200, y: 200 }} to={{ x: 800, y: 200 }} curvature={0} delay={4.5} />
+              <ConnectingLine
+                from={{ x: 200, y: 200 }}
+                to={{ x: 800, y: 200 }}
+                curvature={0}
+                delay={4.5}
+              />
             </div>
 
             {/* Floating Cards */}
@@ -793,44 +928,29 @@ const Expli = () => {
               className="absolute left-[30%] top-[250px] bg-[#0f172a] border border-slate-800 p-3 rounded-xl shadow-lg z-20 w-48 hidden md:block"
             >
               <div className="flex justify-between items-center mb-2">
-                <span className="text-[10px] font-bold text-slate-300">Please note</span>
+                <span className="text-[10px] font-bold text-slate-300">
+                  Please note
+                </span>
                 <MoreHorizontal size={12} className="text-slate-600" />
               </div>
               <div className="flex items-center gap-2 bg-slate-800/50 p-2 rounded-lg mb-2">
-                <div className="font-serif text-lg italic text-slate-400">T</div>
+                <div className="font-serif text-lg italic text-slate-400">
+                  T
+                </div>
                 <div className="h-1 w-12 bg-slate-700 rounded-full" />
               </div>
               <div className="flex items-center gap-2">
                 <div className="p-1 rounded bg-slate-800 text-slate-500">
                   <ImageIcon size={10} />
                 </div>
-                <span className="text-[10px] text-slate-500">Image Processing</span>
+                <span className="text-[10px] text-slate-500">
+                  Image Processing
+                </span>
               </div>
             </motion.div>
           </div>
         </div>
       </main>
-
-      {/* Logos Section */}
-      <AnimatedSection className="py-10 border-t border-slate-900 bg-[#020617] w-full">
-        <div
-          id="resources"
-          className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500"
-        >
-          {['Evernote', 'Airwallex', 'Databricks', 'HELLOSIGN', 'Razorpay'].map((logo, i) => (
-            <motion.span
-              key={logo}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="text-lg font-bold font-serif text-white"
-            >
-              {logo}
-            </motion.span>
-          ))}
-        </div>
-      </AnimatedSection>
 
       {/* Features Grid */}
       <AnimatedSection className="py-24 bg-gradient-to-b from-[#020617] to-slate-950 w-full">
@@ -857,33 +977,33 @@ const Expli = () => {
           {[
             {
               icon: Globe,
-              title: 'Global Reach',
-              desc: 'Connect with customers anywhere in the world with real-time translation.',
+              title: "Global Reach",
+              desc: "Connect with customers anywhere in the world with real-time translation.",
             },
             {
               icon: Shield,
-              title: 'Enterprise Security',
-              desc: 'Bank-grade encryption and SOC2 compliance to keep data safe.',
+              title: "Enterprise Security",
+              desc: "Bank-grade encryption and SOC2 compliance to keep data safe.",
             },
             {
               icon: Zap,
-              title: 'Lightning Fast',
-              desc: 'Responses generated in milliseconds using advanced caching.',
+              title: "Lightning Fast",
+              desc: "Responses generated in milliseconds using advanced caching.",
             },
             {
               icon: Clock,
-              title: '24/7 Availability',
-              desc: 'Never miss a query. Expli works tirelessly around the clock.',
+              title: "24/7 Availability",
+              desc: "Never miss a query. Expli works tirelessly around the clock.",
             },
             {
               icon: BarChart3,
-              title: 'Deep Analytics',
-              desc: 'Gain insights into customer sentiment and query patterns.',
+              title: "Deep Analytics",
+              desc: "Gain insights into customer sentiment and query patterns.",
             },
             {
               icon: Cpu,
-              title: 'Custom Models',
-              desc: 'Fine-tune the AI on your specific business data and documents.',
+              title: "Custom Models",
+              desc: "Fine-tune the AI on your specific business data and documents.",
             },
           ].map((feature, i) => (
             <FeatureCard key={i} {...feature} delay={i * 0.1} />
@@ -893,8 +1013,6 @@ const Expli = () => {
 
       {/* BYOK Section */}
       <BYOKSection />
-
-  
 
       {/* Integrations */}
       <AnimatedSection
@@ -910,8 +1028,9 @@ const Expli = () => {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.5 }}
-              className="text-[#23b5b5] font-semibold tracking-wider text-sm uppercase"
+              className="inline-flex items-center gap-2 text-[#23b5b5] font-semibold tracking-wider text-sm uppercase"
             >
+              <Globe className="w-4 h-4" />
               Ecosystem
             </motion.span>
             <motion.h2
@@ -930,38 +1049,40 @@ const Expli = () => {
               transition={{ delay: 0.2 }}
               className="text-slate-400 mt-4 text-lg"
             >
-              Connect Expli with your favorite tools. We support over 50+ integrations out of the box so you can get
-              started in minutes.
+              Connect Expli with your favorite tools. We support over 50+
+              integrations out of the box so you can get started in minutes.
             </motion.p>
           </div>
-          <a href='https://app.explified.com/integrations'>
-          <motion.button
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ delay: 0.3 }}
-            className="flex items-center gap-2 text-white font-semibold hover:text-[#23b5b5] transition-colors group"
-          >
-            View all integrations <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </motion.button></a>
+          <a href="https://app.explified.com/integrations">
+            <motion.button
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ delay: 0.3 }}
+              className="flex items-center gap-2 text-white font-semibold hover:text-[#23b5b5] transition-colors group"
+            >
+              View all integrations{" "}
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </motion.button>
+          </a>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
-            { name: 'Slack', icon: MessageSquare, desc: 'Chat directly' },
-            { name: 'VS Code', icon: Code, desc: 'Code assistant' },
-            { name: 'Notion', icon: Layers, desc: 'Knowledge base' },
-            { name: 'Zapier', icon: Zap, desc: 'Automate workflows' },
-            { name: 'Discord', icon: MessageSquare, desc: 'Community mod' },
-            { name: 'GitHub', icon: Code, desc: 'PR Reviews' },
-            { name: 'Jira', icon: Layers, desc: 'Ticket management' },
-            { name: 'Intercom', icon: MessageSquare, desc: 'Customer support' },
+            { name: "Slack", icon: MessageSquare, desc: "Chat directly" },
+            { name: "VS Code", icon: Code, desc: "Code assistant" },
+            { name: "Notion", icon: Layers, desc: "Knowledge base" },
+            { name: "Zapier", icon: Zap, desc: "Automate workflows" },
+            { name: "Discord", icon: MessageSquare, desc: "Community mod" },
+            { name: "GitHub", icon: Code, desc: "PR Reviews" },
+            { name: "Jira", icon: Layers, desc: "Ticket management" },
+            { name: "Intercom", icon: MessageSquare, desc: "Customer support" },
           ].map((tool, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
+              viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
               whileHover={{ y: -5, scale: 1.02 }}
               className="bg-slate-900 border border-slate-800 p-6 rounded-xl hover:border-[#23b5b5]/50 transition-all cursor-pointer group flex items-center gap-4 shadow-md"
@@ -979,7 +1100,7 @@ const Expli = () => {
       </AnimatedSection>
 
       {/* Pricing (Coming soon) */}
-      <PricingSection />
+      <PricingSection hovered={hovered} setHovered={setHovered} />
 
       {/* Bottom Innovation Section */}
       <AnimatedSection className="py-24 relative overflow-hidden w-full">
@@ -988,9 +1109,9 @@ const Expli = () => {
             <motion.div
               animate={{
                 boxShadow: [
-                  '0 0 20px rgba(35,181,181,0)',
-                  '0 0 40px rgba(35,181,181,0.8)',
-                  '0 0 20px rgba(35,181,181,0)',
+                  "0 0 20px rgba(35,181,181,0)",
+                  "0 0 40px rgba(35,181,181,0.8)",
+                  "0 0 20px rgba(35,181,181,0)",
                 ],
                 scale: [1, 1.1, 1],
               }}
@@ -1041,7 +1162,7 @@ const Expli = () => {
                 fill="none"
                 strokeDasharray="30 10"
                 animate={{ strokeDashoffset: [200, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
               />
               <motion.path
                 d="M400 300 C 400 200, 700 200, 700 100"
@@ -1050,7 +1171,12 @@ const Expli = () => {
                 fill="none"
                 strokeDasharray="30 10"
                 animate={{ strokeDashoffset: [200, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'linear', delay: 1 }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "linear",
+                  delay: 1,
+                }}
               />
               <motion.path
                 d="M400 300 C 400 200, 250 200, 250 150"
@@ -1059,7 +1185,12 @@ const Expli = () => {
                 fill="none"
                 strokeDasharray="30 10"
                 animate={{ strokeDashoffset: [200, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'linear', delay: 0.5 }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "linear",
+                  delay: 0.5,
+                }}
               />
               <motion.path
                 d="M400 300 C 400 200, 550 200, 550 150"
@@ -1068,7 +1199,12 @@ const Expli = () => {
                 fill="none"
                 strokeDasharray="30 10"
                 animate={{ strokeDashoffset: [200, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'linear', delay: 1.5 }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "linear",
+                  delay: 1.5,
+                }}
               />
 
               <circle cx="100" cy="100" r="4" fill="#23b5b5" />
@@ -1083,7 +1219,9 @@ const Expli = () => {
               transition={{ delay: 0.2 }}
               className="absolute left-[12.5%] bottom-[76%] -translate-x-1/2 bg-slate-800/80 backdrop-blur px-3 py-1 rounded-full border border-slate-700"
             >
-              <span className="text-xs text-[#23b5b5] font-semibold">Deep Learning</span>
+              <span className="text-xs text-[#23b5b5] font-semibold">
+                Deep Learning
+              </span>
             </motion.div>
 
             <motion.div
@@ -1092,7 +1230,9 @@ const Expli = () => {
               transition={{ delay: 0.4 }}
               className="absolute left-[31.25%] bottom-[59%] -translate-x-1/2 bg-slate-800/80 backdrop-blur px-3 py-1 rounded-full border border-slate-700"
             >
-              <span className="text-xs text-[#23b5b5] font-semibold">NLP Core</span>
+              <span className="text-xs text-[#23b5b5] font-semibold">
+                NLP Core
+              </span>
             </motion.div>
 
             <motion.div
@@ -1101,7 +1241,9 @@ const Expli = () => {
               transition={{ delay: 0.6 }}
               className="absolute left-[68.75%] bottom-[59%] -translate-x-1/2 bg-slate-800/80 backdrop-blur px-3 py-1 rounded-full border border-slate-700"
             >
-              <span className="text-xs text-[#23b5b5] font-semibold">Automation</span>
+              <span className="text-xs text-[#23b5b5] font-semibold">
+                Automation
+              </span>
             </motion.div>
 
             <motion.div
@@ -1110,7 +1252,9 @@ const Expli = () => {
               transition={{ delay: 0.8 }}
               className="absolute left-[87.5%] bottom-[76%] -translate-x-1/2 bg-slate-800/80 backdrop-blur px-3 py-1 rounded-full border border-slate-700"
             >
-              <span className="text-xs text-[#23b5b5] font-semibold">Analytics</span>
+              <span className="text-xs text-[#23b5b5] font-semibold">
+                Analytics
+              </span>
             </motion.div>
           </div>
 
@@ -1131,8 +1275,8 @@ const Expli = () => {
             transition={{ delay: 0.1 }}
             className="text-slate-500 max-w-2xl mx-auto"
           >
-            With our advanced chatbot solutions, you will be able to maximize customer engagement and efficiency to a
-            whole new level.
+            With our advanced chatbot solutions, you will be able to maximize
+            customer engagement and efficiency to a whole new level.
           </motion.p>
         </div>
       </AnimatedSection>
@@ -1146,27 +1290,42 @@ const Expli = () => {
               <h4 className="text-white font-semibold mb-4">Platform</h4>
               <ul className="space-y-2">
                 <li>
-                  <a href="https://labs.explified.com" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://labs.explified.com"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     Labs
                   </a>
                 </li>
                 <li>
-                  <a href="https://stream.explified.com" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://stream.explified.com"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     Stream
                   </a>
                 </li>
                 <li>
-                  <a href="https://developer.explified.com" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://developer.explified.com"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     Developer
                   </a>
                 </li>
                 <li>
-                  <a href="https://affiliate.explified.com" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://affiliate.explified.com"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     Affiliate
                   </a>
                 </li>
                 <li>
-                  <a href="https://beacon.explified.com" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://beacon.explified.com"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     Beacon
                   </a>
                 </li>
@@ -1177,27 +1336,42 @@ const Expli = () => {
               <h4 className="text-white font-semibold mb-4">Products</h4>
               <ul className="space-y-2">
                 <li>
-                  <a href="https://notes.explified.com" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://notes.explified.com"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     Notes
                   </a>
                 </li>
                 <li>
-                  <a href="https://explified.com/quickshot/" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://explified.com/quickshot/"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     QuickShot
                   </a>
                 </li>
                 <li>
-                  <a href="https://explified.com/youtube-summarizer" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://explified.com/youtube-summarizer"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     Youtube Summariser
                   </a>
                 </li>
                 <li>
-                  <a href="https://explified.com/yt-insight-saas/" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://explified.com/yt-insight-saas/"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     YT Insight
                   </a>
                 </li>
                 <li>
-                  <a href="https://expli.explified.com" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://expli.explified.com"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     Expli
                   </a>
                 </li>
@@ -1208,27 +1382,42 @@ const Expli = () => {
               <h4 className="text-white font-semibold mb-4">Resources</h4>
               <ul className="space-y-2">
                 <li>
-                  <a href="https://explified.com/blog" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://explified.com/blog"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     Blog
                   </a>
                 </li>
                 <li>
-                  <a href="https://explified.com/our-projects/" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://projects.explified.com/"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     Our Projects
                   </a>
                 </li>
                 <li>
-                  <a href="https://community.explified.com" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://community.explified.com"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     Community
                   </a>
                 </li>
                 <li>
-                  <a href="https://academy.explified.com" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://academy.explified.com"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     Academy
                   </a>
                 </li>
                 <li>
-                  <a href="https://events.explified.com" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://events.explified.com"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     Events
                   </a>
                 </li>
@@ -1239,27 +1428,42 @@ const Expli = () => {
               <h4 className="text-white font-semibold mb-4">Company</h4>
               <ul className="space-y-2">
                 <li>
-                  <a href="https://explified.com/about-us/" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://explified.com/about-us/"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     About us
                   </a>
                 </li>
                 <li>
-                  <a href="https://explified.com/partners/" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://explified.com/partners/"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     Partners
                   </a>
                 </li>
                 <li>
-                  <a href="https://explified.com/terms-of-service/" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://explified.com/terms-of-service/"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     Terms of Service
                   </a>
                 </li>
                 <li>
-                  <a href="https://explified.com/privacy-policy/" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://explified.com/privacy-policy/"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     Privacy Policy
                   </a>
                 </li>
                 <li>
-                  <a href="https://explified.com/refund-terms/" className="hover:text-[#23b5b5] transition-colors">
+                  <a
+                    href="https://explified.com/refund-terms/"
+                    className="hover:text-[#23b5b5] transition-colors"
+                  >
                     Refund Terms
                   </a>
                 </li>
@@ -1270,32 +1474,44 @@ const Expli = () => {
           {/* Bottom row */}
           <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-[#23b5b5] rounded flex items-center justify-center">
-                  <img src={logo} className="h-10 w-12 text-[#23b5b5]" />
+              <div className="w-6 h-6 rounded flex items-center justify-center">
+                <img src={mainlogo} className="h-6 w-10 text-[#23b5b5]" />
               </div>
-              <span className="font-semibold text-white text-base">Explified</span>
+              <span className="font-semibold text-white text-base">
+                Explified
+              </span>
             </div>
 
             <div className="flex flex-wrap items-center gap-6 text-gray-400">
-              <a href="#" className="flex items-center gap-2 hover:text-[#23b5b5] transition-colors">
+              <a
+                href="https://instagram.com/explified"
+                className="flex items-center gap-2 hover:text-[#23b5b5] transition-colors"
+              >
                 <Instagram className="w-4 h-4" />
                 <span className="text-xs md:text-sm">Instagram</span>
               </a>
-              <a href="#" className="flex items-center gap-2 hover:text-[#23b5b5] transition-colors">
+              <a
+                href="https://www.linkedin.com/company/explified/"
+                className="flex items-center gap-2 hover:text-[#23b5b5] transition-colors"
+              >
                 <Linkedin className="w-4 h-4" />
                 <span className="text-xs md:text-sm">LinkedIn</span>
               </a>
-              <a href="#" className="flex items-center gap-2 hover:text-[#23b5b5] transition-colors">
+              <a
+                href="https://www.youtube.com/@explified"
+                className="flex items-center gap-2 hover:text-[#23b5b5] transition-colors"
+              >
                 <Youtube className="w-4 h-4" />
                 <span className="text-xs md:text-sm">YouTube</span>
               </a>
-              <a href="#" className="flex items-center gap-2 hover:text-[#23b5b5] transition-colors">
+              <a
+                href="https://x.com/explified"
+                className="flex items-center gap-2 hover:text-[#23b5b5] transition-colors"
+              >
                 <Twitter className="w-4 h-4" />
                 <span className="text-xs md:text-sm">Twitter / X</span>
               </a>
             </div>
-
-       
           </div>
         </div>
       </footer>

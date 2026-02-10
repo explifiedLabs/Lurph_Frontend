@@ -689,8 +689,6 @@ const Expli = () => {
   const { scrollYProgress } = useScroll();
   const [hovered, setHovered] = useState(1);
 
-  console.log(hovered);
-
   // Transforms for hero cards
   const card1Y = useTransform(scrollYProgress, [0, 0.4], [0, -100]);
   const card1X = useTransform(scrollYProgress, [0, 0.4], [0, -60]);

@@ -117,7 +117,7 @@ function ExpliInput({
           <div className="text-center mb-10">
             {/* Updated Heading Gradient to Lurph Gold/Amber */}
             <h1 className="text-[clamp(2.5rem,6vw,4rem)] font-bold tracking-tight leading-[1.1] mb-3 text-transparent bg-clip-text bg-[linear-gradient(135deg,#FFFFFF_0%,#FFD600_60%,#D97706_100%)]">
-              Expli
+              Lurph
             </h1>
             <p className="text-gray-500 text-[15px] font-light m-0">
               Transform complex information into clear explanations

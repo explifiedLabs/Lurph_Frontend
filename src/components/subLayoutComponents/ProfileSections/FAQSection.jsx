@@ -239,7 +239,7 @@ const FAQSection = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
-              className="bg-gradient-to-br from-black to-[#0a0a0a] border border-[#FFD600]/20 rounded-lg overflow-hidden hover:border-[#FFD600]/40 transition-all duration-200"
+              className="bg-linear-to-br from-black to-[#0a0a0a] border border-[#FFD600]/20 rounded-lg overflow-hidden hover:border-[#FFD600]/40 transition-all duration-200"
             >
               <motion.button
                 onClick={() =>
@@ -299,7 +299,7 @@ const FAQSection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
-            className="bg-gradient-to-br from-black to-[#0a0a0a] border border-[#FFD600]/20 rounded-lg p-8 text-center"
+            className="bg-linear-to-br from-black to-[#0a0a0a] border border-[#FFD600]/20 rounded-lg p-8 text-center"
           >
             <HelpCircle className="w-12 h-12 text-gray-500 mx-auto mb-3 opacity-50" />
             <p className="text-gray-400">No FAQs found matching your search.</p>
@@ -315,7 +315,7 @@ const FAQSection = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.3 }}
-        className="bg-gradient-to-r from-[#FFD600]/10 to-[#FFD600]/5 border border-[#FFD600]/30 rounded-lg p-6"
+        className="bg-linear-to-r from-[#FFD600]/10 to-[#FFD600]/5 border border-[#FFD600]/30 rounded-lg p-6"
       >
         <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
           <MessageCircle className="w-5 h-5 text-[#FFD600]" />

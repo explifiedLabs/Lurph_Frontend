@@ -25,7 +25,7 @@ function App() {
         {/* Landing Page Route */}
         <Route path="/" element={<LurphApp />} />
 
-        <Route path="/expli" element={<Trone />}>
+        <Route path="/lurph" element={<Trone />}>
           <Route index element={<ChatPanel />} />
           <Route path="ask" element={<AskQuestion />} />
           <Route path="plans" element={<BuildPlan />} />

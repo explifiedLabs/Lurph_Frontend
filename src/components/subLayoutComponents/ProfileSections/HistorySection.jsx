@@ -70,7 +70,7 @@ const HistorySection = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3, delay: index * 0.05 }}
-            className="bg-gradient-to-br from-black to-[#0a0a0a] border border-[#FFD600]/20 rounded-xl p-5 flex items-center justify-between hover:border-[#FFD600]/40 transition-all duration-200"
+            className="bg-linear-to-br from-black to-[#0a0a0a] border border-[#FFD600]/20 rounded-xl p-5 flex items-center justify-between hover:border-[#FFD600]/40 transition-all duration-200"
           >
             <div className="flex items-center gap-4 flex-1">
               <div

@@ -63,7 +63,7 @@ export default function EnterpriseSectionSimple() {
             return (
               <div
                 key={plan.id}
-                className="rounded-lg border border-[#FFD600]/20 bg-gradient-to-br from-black to-[#0a0a0a] overflow-hidden"
+                className="rounded-lg border border-[#FFD600]/20 bg-linear-to-br from-black to-[#0a0a0a] overflow-hidden"
               >
                 <div className="px-5 py-4 flex items-center justify-between">
                   <div className="flex items-center gap-4">
@@ -113,7 +113,7 @@ export default function EnterpriseSectionSimple() {
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.25 }}
-                      className="px-6 pb-5 bg-gradient-to-b from-[#FFD600]/5 to-transparent"
+                      className="px-6 pb-5 bg-linear-to-b from-[#FFD600]/5 to-transparent"
                     >
                       <div className="pt-2 pb-3">
                         <ul className="list-disc pl-5 space-y-2 text-sm text-gray-300">

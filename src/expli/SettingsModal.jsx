@@ -372,8 +372,8 @@ function ApiKeysView({ onBack }) {
               status.type === "success"
                 ? "text-green-400"
                 : status.type === "error"
-                ? "text-red-400"
-                : "text-gray-400"
+                  ? "text-red-400"
+                  : "text-gray-400"
             }`}
           >
             {status.text}

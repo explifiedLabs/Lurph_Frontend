@@ -29,8 +29,7 @@ const NewsPage = () => {
             url: url,
           },
           headers: {
-            "x-rapidapi-key":
-              "5c43358bb7msh620384fe8a16560p1a0fd1jsn853ee75f7459",
+            "x-rapidapi-key": import.meta.env.VITE_NEWS_API_KEY_SARITA,
             "x-rapidapi-host":
               "article-extractor-and-summarizer.p.rapidapi.com",
           },

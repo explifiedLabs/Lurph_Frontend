@@ -32,12 +32,12 @@ import HistorySection from "./ProfileSections/HistorySection";
 import ContactSupportSection from "./ProfileSections/ContactSupportSection";
 import FAQSection from "./ProfileSections/FAQSection";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+
+import { logoutUser } from "../../store/authSlice";
 
 const ProfileSettingsModal = ({ isOpen, onClose }) => {
   const [activeSection, setActiveSection] = useState("accounts");
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const { logout } = useAuth();
 
   const navigate = useNavigate();
 
@@ -284,8 +284,8 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
                     {/* Sign Out Button - Red accent preserved but themed */}
                     <motion.button
                       onClick={() => {
-                        logout();
-                        navigate("/login");
+                        logoutUser();
+                        navigate("/");
                       }}
                       className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-500/80 hover:text-red-400 hover:bg-red-500/5 transition-all duration-200 group"
                       whileHover={{ x: 4 }}

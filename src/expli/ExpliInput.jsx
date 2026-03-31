@@ -25,28 +25,28 @@ const QUICK_ACTIONS = [
     icon: RiFlowChart,
     label: "Generate Diagram",
     color: "#3b82f6",
-    navigate: "/expli/diagrams",
+    navigate: "/lurph/diagrams",
   },
   {
     id: "ask",
     icon: Sparkles,
     label: "Focus Mode",
     color: "#8b5cf6",
-    navigate: "/expli/ask",
+    navigate: "/lurph/ask",
   },
   {
     id: "plan",
     icon: Map,
     label: "Build Plan",
     color: "#f59e0b",
-    navigate: "/expli/plans",
+    navigate: "/lurph/plans",
   },
   {
     id: "flash",
     icon: BsListCheck,
     label: "Generate Flashcards",
     color: "#10b981",
-    navigate: "/expli/flashcards",
+    navigate: "/lurph/flashcards",
   },
 ];
 

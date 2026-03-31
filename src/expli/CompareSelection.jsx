@@ -18,7 +18,7 @@ export default function CompareSelection() {
   const handleStartCompare = () => {
     if (selectedModels.length < 1) return;
     // Navigate to chat with selected models, possibly passing them in state
-    navigate("/expli/compare/chat", {
+    navigate("/lurph/compare/chat", {
       state: { selectedModelIds: selectedModels },
     });
   };
@@ -67,7 +67,7 @@ export default function CompareSelection() {
       <div className="px-8 py-6 border-b border-gray-800/50 sticky top-0 bg-black/95 z-20 backdrop-blur-md">
         <div className="flex items-center gap-4 mb-2">
           <button
-            onClick={() => navigate("/expli")}
+            onClick={() => navigate("/lurph")}
             className="text-gray-400 hover:text-white text-sm flex items-center gap-1"
           >
             &larr; Back to Chat

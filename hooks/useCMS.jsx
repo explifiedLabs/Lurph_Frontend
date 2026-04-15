@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 const CMSContext = createContext();
-const SITE_ID = "69c67e3f225219428111ab74";
+const SITE_ID = "69c7aac4b4e0d5c00d96e3f2";
 
 export const CMSProvider = ({ children }) => {
   const [data, setData] = useState({ header: {}, footer: {} });
@@ -38,5 +38,5 @@ export const CMSProvider = ({ children }) => {
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
+
 export const useCMS = () => useContext(CMSContext);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router"; // keep as-is per original
+import { Link, useLocation, useNavigate } from "react-router"; // keep as-is per original
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronDown,
@@ -332,7 +332,7 @@ export default function LurphNavbar() {
   const [scrolled, setScrolled] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState(null);
   const location = useLocation();
-
+   const navigate = useNavigate()
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
@@ -497,7 +497,7 @@ export default function LurphNavbar() {
 
         {/* CTA */}
         <motion.a
-          href="https://auth.explified.com"
+          onClick={() => navigate("/login")}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="flex items-center gap-2"
@@ -513,7 +513,7 @@ export default function LurphNavbar() {
             textDecoration: "none",
           }}
         >
-          Try Lurph <ArrowRight size={15} />
+          Get started <ArrowRight size={15} />
         </motion.a>
       </motion.nav>
     </div>

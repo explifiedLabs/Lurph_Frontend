@@ -1,14 +1,25 @@
-// src/store/store.js
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from '../store/authSlice'; // Path to the authSlice.js you made
+import authReducer, { clearAuth, logoutUser } from '../features/authSlice';
+import chatReducer, { clearChat } from '../features/chatSlice';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    chat: chatReducer,
   },
-  // Adding middleware to ignore non-serializable data from Firebase if necessary
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
     }),
 });
+
+/**
+ * Listen for the 401 event that apiConfig.js fires.
+ * Force-clear auth and chat state without needing a component to handle it.
+ */
+window.addEventListener('auth:expired', () => {
+  store.dispatch(clearAuth());
+  store.dispatch(clearChat());
+});
+
+export default store;

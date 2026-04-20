@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Clock } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const POSTS_PER_PAGE = 6;
 const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop";
@@ -68,6 +68,7 @@ const CardShimmer = () => (
 );
 
 export default function BlogMainPage() {
+  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -240,7 +241,14 @@ export default function BlogMainPage() {
         {/* ── RECENT POSTS HEADER ── */}
         <div className="flex items-center justify-between mb-10">
           <h2 className="text-4xl font-bold tracking-tight">Recent Posts</h2>
-          <button className="px-6 py-2 rounded-full border border-white/10 text-sm font-bold hover:bg-white hover:text-black transition-all">
+          <button
+            onClick={() => {
+              setCurrentPage(1);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+              navigate("/blog");
+            }}
+            className="px-6 py-2 rounded-full border border-white/10 text-sm font-bold hover:bg-white hover:text-black transition-all"
+          >
             All Posts
           </button>
         </div>

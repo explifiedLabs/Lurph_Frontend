@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Twitter,
   Linkedin,
   Instagram,
   Youtube,
@@ -11,6 +10,18 @@ import logo from "../../lurph.png";
 
 const BRAND_YELLOW = "#FFD600";
 const SITE_ID = "69c67e3f225219428111ab74";
+
+const XIcon = ({ size = 16 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.24l-4.88-7.38L5.62 22H2.5l7.24-8.28L1.2 2h6.4l4.41 6.75L18.9 2zm-1.09 18h1.72L6.67 3.9H4.82L17.81 20z" />
+  </svg>
+);
 
 // Resilient CMS key lookup (case-insensitive)
 const getMenu = (data, menuName) => {
@@ -31,7 +42,7 @@ const FooterLink = ({ link }) => {
     "text-sm text-zinc-500 hover:text-white transition-colors duration-200 leading-relaxed";
 
   return isExternal ? (
-    <a href={url} target="_blank" rel="noopener noreferrer" className={cls}>
+    <a href={url} rel="noopener noreferrer" className={cls}>
       {label}
     </a>
   ) : (
@@ -182,7 +193,7 @@ export default function LurphFooter() {
             {[
               { Icon: Youtube, href: "https://youtube.com/c/explified" },
               { Icon: Instagram, href: "https://instagram.com/explified" },
-              { Icon: Twitter, href: "https://x.com/explified" },
+              { Icon: XIcon, href: "https://x.com/explified" },
               {
                 Icon: Linkedin,
                 href: "https://linkedin.com/company/explified",
@@ -191,7 +202,6 @@ export default function LurphFooter() {
               <a
                 key={i}
                 href={href}
-                target="_blank"
                 rel="noopener noreferrer"
                 style={{
                   width: 38,

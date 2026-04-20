@@ -148,10 +148,7 @@ function AppRoutes() {
                 }
               >
                 <Route index element={<ChatPanel />} />
-                {/* FIX: this route was commented out — that's why clicking a chat
-                    in the sidebar never loaded messages */}
                 <Route path=":chatId" element={<ChatPanel />} />
-
                 <Route path="workflowpage" element={<WorkflowsPageComp />} />
                 <Route path="integrations" element={<IntegrationsPageComp />} />
               </Route>

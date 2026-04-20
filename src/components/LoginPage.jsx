@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { loginUser, registerUser, googleLogin, clearError } from "../features/authSlice";
 import logo from "../../lurph.png";
 
@@ -59,6 +59,7 @@ const features = [
 export default function LoginPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { loadingEmail, loadingGoogle, error, isAuthenticated } = useSelector(
     (s) => s.auth
@@ -73,6 +74,7 @@ export default function LoginPage() {
   const [showPass, setShowPass] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [localError, setLocalError] = useState("");
+  const returnTo = location.state?.from || "/";
 
   useEffect(() => {
     if (submitted && isAuthenticated) navigate("/chat");
@@ -414,16 +416,16 @@ export default function LoginPage() {
         <div className="hidden md:flex flex-col flex-1 justify-between p-8 relative overflow-hidden">
           {/* subtle grid bg */}
           <button
-  onClick={() => navigate("/")}
-  className="absolute top-4 right-4 z-20 w-8 h-8 cursor-pointer flex items-center justify-center rounded-full transition-all hover:bg-[#FFD600]"
-  style={{
-    background: "rgba(255,255,255,0.06)",
-    border: "1px solid rgba(255,255,255,0.1)",
-    color: "#aaa",
-  }}
->
-  ✕
-</button>
+            onClick={() => navigate(-1)}
+            className="absolute top-4 right-4 z-20 w-8 h-8 cursor-pointer flex items-center justify-center rounded-full transition-all hover:bg-[#FFD600]"
+            style={{
+              background: "rgba(255,255,255,0.06)",
+              border: "1px solid rgba(255,255,255,0.1)",
+              color: "#aaa",
+            }}
+          >
+            ✕
+          </button>
           <div className="absolute inset-0 opacity-[0.03]"
             style={{
               backgroundImage: "linear-gradient(rgba(255,214,0,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,214,0,0.5) 1px, transparent 1px)",

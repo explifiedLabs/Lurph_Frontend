@@ -621,8 +621,8 @@ export default function LurphInput({
             transition: "border-color .25s, box-shadow .25s",
           }}
         >
-          {/* Model chips row inside the box */}
-          {selectedModels.length > 0 && (
+          {/* Model chips row inside the box — only show if multiple models or not default Lurph */}
+          {selectedModels.length > 1 && (
             <div
               style={{
                 display:    "flex",

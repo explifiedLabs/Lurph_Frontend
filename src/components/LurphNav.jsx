@@ -292,36 +292,6 @@ const MegaMenu = ({ menuData }) => {
         </React.Fragment>
       ))}
 
-      {/* Sticky bottom fade + scroll hint dots */}
-      <div
-        style={{
-          position: "sticky",
-          bottom: 0,
-          height: "48px",
-          marginTop: "-48px",
-          pointerEvents: "none",
-          background: "linear-gradient(to top, #0e0e0f 35%, transparent 100%)",
-          borderRadius: "0 0 20px 20px",
-          display: "flex",
-          alignItems: "flex-end",
-          justifyContent: "center",
-          paddingBottom: "11px",
-          gap: "5px",
-        }}
-      >
-        {[0, 1, 2].map((i) => (
-          <div
-            key={i}
-            style={{
-              width: "3px",
-              height: "3px",
-              borderRadius: "50%",
-              background: "rgba(255,214,0,0.45)",
-              animation: `lurphPulse 1.6s ease-in-out ${i * 0.22}s infinite`,
-            }}
-          />
-        ))}
-      </div>
     </motion.div>
   );
 };
@@ -383,7 +353,7 @@ export default function LurphNavbar() {
               </span>
             </Link>
             <a
-              href="https://explified.com"
+              href="https://localhos:5173"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -497,7 +467,11 @@ export default function LurphNavbar() {
 
         {/* CTA */}
         <motion.a
-          onClick={() => navigate("/login")}
+          onClick={() =>
+            navigate("/login", {
+              state: { from: location.pathname + location.search },
+            })
+          }
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="flex items-center gap-2"

@@ -9,6 +9,7 @@ import { FaTools, FaBrain, FaStickyNote } from "react-icons/fa";
 import { FaCompass } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import lurphLogo from "../../../lurph.png";
 
 import {
   fetchChats,
@@ -167,7 +168,8 @@ function ChatRow({ item, isActive, onSelect, onDelete, onRename }) {
   const [renaming, setRenaming] = useState(false);
   const [renameVal, setRenameVal] = useState("");
 
-  const title = item?.title || item?.lastMessage || "New conversation";
+  const title = item?.title || "New conversation";
+  const summary = item?.lastMessage ? item.lastMessage.slice(0, 60) + (item.lastMessage.length > 60 ? "..." : "") : "";
 
   const handleRenameSave = () => {
     if (renameVal.trim()) onRename(item._id, renameVal.trim());
@@ -204,11 +206,21 @@ function ChatRow({ item, isActive, onSelect, onDelete, onRename }) {
               style={{ borderBottom: `1px solid ${Y}` }}
             />
           ) : (
-            <div
-              className="text-[13px] truncate leading-tight"
-              style={{ color: isActive ? Y : "#d4d4d8" }}
-            >
-              {title}
+            <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              <div
+                className="text-[13px] truncate leading-tight font-medium"
+                style={{ color: isActive ? Y : "#d4d4d8" }}
+              >
+                {title}
+              </div>
+              {summary && (
+                <div
+                  className="text-[11px] truncate leading-tight"
+                  style={{ color: "#71717a" }}
+                >
+                  {summary}
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -334,12 +346,14 @@ export default function ExpliSidebar({ isMobileOpen, setIsMobileOpen }) {
           {isExpanded ? (
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 10px 12px", flexShrink: 0, gap: 6 }}>
               <div onClick={handleNewChat} style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", flex: 1, minWidth: 0, marginLeft: 5 }}>
+                <img src={lurphLogo} alt="Lurph" style={{ width: 20, height: 20, borderRadius: 4 }} />
                 <span style={{ fontSize: 15, fontWeight: 700, color: "#fff", letterSpacing: "-0.02em" }}>Lurph</span>
               </div>
               <Tooltip label="Collapse sidebar">{toggleButton}</Tooltip>
             </div>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "14px 0 8px", flexShrink: 0, gap: 6 }}>
+              <img src={lurphLogo} alt="Lurph" style={{ width: 24, height: 24, borderRadius: 4 }} />
               <Tooltip label="Expand sidebar">{toggleButton}</Tooltip>
             </div>
           )}
@@ -467,9 +481,13 @@ export default function ExpliSidebar({ isMobileOpen, setIsMobileOpen }) {
                 onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.color = "#e4e4e7"; }}
                 onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#71717a"; }}
               >
-                <div style={{ width: 24, height: 24, borderRadius: "50%", flexShrink: 0, background: "linear-gradient(135deg,#FFD600,#D97706)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ fontSize: 10, fontWeight: 700, color: "#000" }}>{userInitial}</span>
-                </div>
+                {user?.avatar ? (
+                  <img src={user.avatar} alt="Avatar" style={{ width: 24, height: 24, borderRadius: "50%", objectFit: "cover", flexShrink: 0 }} />
+                ) : (
+                  <div style={{ width: 24, height: 24, borderRadius: "50%", flexShrink: 0, background: "linear-gradient(135deg,#FFD600,#D97706)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <span style={{ fontSize: 10, fontWeight: 700, color: "#000" }}>{userInitial}</span>
+                  </div>
+                )}
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", minWidth: 0 }}>
                   <span style={{ fontSize: 13, fontWeight: 500, color: "#e4e4e7", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 160 }}>{user?.name || "Profile"}</span>
                   {user?.email && (
@@ -486,9 +504,13 @@ export default function ExpliSidebar({ isMobileOpen, setIsMobileOpen }) {
                     onMouseEnter={(e) => e.currentTarget.style.background = "rgba(255,255,255,0.05)"}
                     onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
                   >
-                    <div style={{ width: 24, height: 24, borderRadius: "50%", background: "linear-gradient(135deg,#FFD600,#D97706)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <span style={{ fontSize: 10, fontWeight: 700, color: "#000" }}>{userInitial}</span>
-                    </div>
+                    {user?.avatar ? (
+                      <img src={user.avatar} alt="Avatar" style={{ width: 24, height: 24, borderRadius: "50%", objectFit: "cover" }} />
+                    ) : (
+                      <div style={{ width: 24, height: 24, borderRadius: "50%", background: "linear-gradient(135deg,#FFD600,#D97706)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <span style={{ fontSize: 10, fontWeight: 700, color: "#000" }}>{userInitial}</span>
+                      </div>
+                    )}
                   </button>
                 </Tooltip>
               </div>

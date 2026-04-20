@@ -48,7 +48,7 @@ const Hero = () => {
           style={{ background: `${Y}10`, color: Y, border: `1px solid ${Y}20` }}
         >
           <span className="w-1.5 h-1.5 rounded-full" style={{ background: Y }} />
-          Introducing Explified Community 2.0
+          Introducing Explified Community
         </motion.div>
 
         <motion.h1
@@ -74,9 +74,7 @@ const Hero = () => {
           <motion.button whileHover={{ scale: 1.05, boxShadow: `0 20px 50px ${Y}40` }} whileTap={{ scale: 0.97 }} className="flex items-center gap-2 px-8 py-3.5 rounded-full font-bold text-black text-sm transition-colors hover:brightness-110" style={{ background: Y }}>
             Join the Community <ArrowRight size={16} />
           </motion.button>
-          <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} className="flex items-center gap-2 px-8 py-3.5 rounded-full font-bold text-white text-sm bg-white/5 border border-white/10 hover:bg-white/10 transition-colors shadow-lg">
-            <Play size={14} fill="currentColor" /> Watch Demo
-          </motion.button>
+          {/* Watch Demo button removed */}
         </motion.div>
 
         {/* Hero Diagram */}
@@ -246,7 +244,13 @@ const IntegrationSection = () => {
              {/* Progress Bar Background */}
              <div className="hidden md:block absolute top-[11px] left-[10%] right-[10%] h-[2px] bg-white/5 rounded-full md:left-[12.5%] md:right-[12.5%]" />
              {/* Active Bar */}
-             <motion.div initial={{ width: "0%" }} whileInView={{ width: "75%" }} viewport={{ once: true }} transition={{ duration: 1.5, ease: "easeOut" }} className="hidden md:block absolute top-[11px] left-[10%] h-[2px] rounded-full shadow-[0_0_10px_#FFD600] md:left-[12.5%]" style={{ background: Y }} />
+             <motion.div 
+               initial={{ width: "0%" }} 
+               animate={{ width: "75%" }} 
+               transition={{ duration: 1.5, ease: "easeOut", delay: 0.3 }} 
+               className="hidden md:block absolute top-[11px] left-[10%] h-[2px] rounded-full shadow-[0_0_10px_#FFD600] md:left-[12.5%]" 
+               style={{ background: Y }} 
+             />
 
              <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
                 {[
@@ -295,9 +299,6 @@ const CTA = () => {
              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="px-10 py-4.5 rounded-full font-black text-black text-[15px]" style={{ background: Y, boxShadow: `0 15px 40px ${Y}40` }}>
                 Start Building for Free
              </motion.button>
-             <button className="text-white font-bold text-sm hover:text-zinc-300 transition-colors">
-                Browse Workflows
-             </button>
           </div>
        </motion.div>
     </section>

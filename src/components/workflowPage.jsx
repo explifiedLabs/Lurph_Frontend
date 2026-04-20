@@ -456,7 +456,7 @@ const WorkflowCanvas = () => {
         </div>
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-xs text-zinc-600">Live · 3 active runs</span>
+          <span className="text-xs text-zinc-600">Live workflow canvas</span>
           <div
             className="ml-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg cursor-pointer"
             style={{ background: Y }}
@@ -627,14 +627,7 @@ const Hero = () => {
             className="flex items-center gap-2 px-10 py-4 rounded-2xl font-black text-black text-base"
             style={{ background: Y }}
           >
-            <IPlay size={16} color="#000" /> Open Canvas
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
-            className="flex items-center gap-2 px-10 py-4 rounded-2xl font-bold text-white text-base border border-white/10 hover:border-white/20 transition-colors"
-          >
-            <ISearch size={16} color="currentColor" /> Browse Templates
+            <IPlay size={16} color="#000" /> Get started
           </motion.button>
         </motion.div>
 
@@ -714,12 +707,6 @@ const NodeTypeCard = ({ icon: Icon, label, color, desc, delay }) => (
       <span className="text-white font-bold text-sm">{label}</span>
     </div>
     <p className="text-zinc-600 text-sm leading-relaxed">{desc}</p>
-    <div
-      className="mt-4 flex items-center gap-1 text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity"
-      style={{ color }}
-    >
-      Browse nodes <IArrow size={12} color={color} />
-    </div>
   </motion.div>
 );
 
@@ -744,7 +731,7 @@ const NodeTypesSection = () => (
           <span className="text-zinc-700">you'll ever need.</span>
         </h2>
         <p className="text-zinc-500 mt-4 max-w-lg mx-auto">
-          400+ pre-built nodes. Write custom ones in minutes. Each node shows
+          Write custom ones in minutes. Each node shows
           inputs and outputs live as you build.
         </p>
       </motion.div>
@@ -764,46 +751,40 @@ const templates = [
     desc: "React to a Slack message and auto-create a GitHub issue with labels.",
     tags: ["Slack", "GitHub", "Trigger"],
     color: "#818cf8",
-    runs: "12.4k",
   },
   {
     title: "AI Email Triage",
     desc: "Classify incoming Gmail threads by urgency using GPT-4, then route to Notion.",
     tags: ["Gmail", "AI", "Notion"],
     color: "#e879f9",
-    runs: "8.1k",
   },
   {
     title: "Scheduled DB Backup",
     desc: "Every night: dump Postgres → compress → upload to S3 → notify on Slack.",
     tags: ["Postgres", "S3", "Cron"],
     color: "#60a5fa",
-    runs: "21k",
   },
   {
     title: "Lead Enrichment",
     desc: "New HubSpot contact → enrich with Clearbit → score → assign to rep.",
     tags: ["HubSpot", "API", "Filter"],
     color: Y,
-    runs: "5.7k",
   },
   {
     title: "PR Review Reminder",
     desc: "If a GitHub PR has no review after 24h, ping the team in Slack.",
     tags: ["GitHub", "Slack", "Cron"],
     color: "#4ade80",
-    runs: "9.3k",
   },
   {
     title: "Invoice Processor",
     desc: "Parse PDF invoices with AI, extract line items, push to Airtable.",
     tags: ["Email", "AI", "Airtable"],
     color: "#f87171",
-    runs: "3.2k",
   },
 ];
 
-const TemplateCard = ({ title, desc, tags, color, runs, delay }) => (
+const TemplateCard = ({ title, desc, tags, color, delay }) => (
   <motion.div
     initial={{ opacity: 0, y: 24 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -827,9 +808,6 @@ const TemplateCard = ({ title, desc, tags, color, runs, delay }) => (
         <h3 className="text-white font-bold text-sm leading-snug pr-4">
           {title}
         </h3>
-        <span className="text-[9px] font-black text-zinc-600 flex-shrink-0">
-          {runs} runs
-        </span>
       </div>
       <p className="text-zinc-600 text-xs leading-relaxed mb-4">{desc}</p>
       <div className="flex flex-wrap gap-1.5">
@@ -842,9 +820,6 @@ const TemplateCard = ({ title, desc, tags, color, runs, delay }) => (
             {t}
           </span>
         ))}
-      </div>
-      <div className="mt-4 flex items-center gap-1 text-[11px] font-bold text-zinc-700 group-hover:text-white transition-colors">
-        Use template <IArrow size={11} color="currentColor" />
       </div>
     </div>
   </motion.div>
@@ -877,9 +852,6 @@ const TemplatesSection = () => (
             <span className="text-zinc-700">template.</span>
           </h2>
         </div>
-        <button className="flex items-center gap-2 text-sm font-bold text-zinc-500 hover:text-white transition-colors">
-          Browse all 400+ templates <IArrow size={14} color="currentColor" />
-        </button>
       </motion.div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {templates.map((t, i) => (
@@ -967,8 +939,8 @@ const ExecutionSection = () => (
         </p>
         <div className="grid grid-cols-2 gap-4">
           {[
-            ["< 200ms", "Median latency"],
-            ["99.9%", "Execution uptime"],
+            ["Flexible", "Multi-step automation"],
+            ["Connected", "Cross-platform integrations"],
             ["Full logs", "Per node"],
             ["Replay", "Any run"],
           ].map(([v, l]) => (
@@ -1346,7 +1318,7 @@ const CommunityWorkflowsSection = () => (
 
       <div className="flex justify-end mb-16 px-2">
         <button className="flex items-center gap-1.5 text-xs font-bold text-zinc-500 hover:text-white transition-colors">
-          Explore All Workflows <IArrow size={12} color="currentColor" />
+          Explore our community <IArrow size={12} color="currentColor" />
         </button>
       </div>
 
@@ -1397,7 +1369,7 @@ const CTA = () => {
             animate={{ scale: [1, 1.6, 1] }}
             transition={{ duration: 1.4, repeat: Infinity }}
           />
-          Open Beta — Free to Start
+          Free to Start
         </motion.div>
         <h2 className="text-[clamp(3rem,11vw,10rem)] font-black text-white tracking-tighter leading-none mb-6">
           BUILD
@@ -1415,14 +1387,7 @@ const CTA = () => {
             className="flex items-center gap-2 px-12 py-5 rounded-full font-black text-black text-lg"
             style={{ background: Y }}
           >
-            <IPlay size={18} color="#000" /> Open the Canvas
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
-            className="px-12 py-5 rounded-full font-bold text-white text-lg border border-white/10 hover:border-white/20 transition-colors"
-          >
-            View Templates
+            <IPlay size={18} color="#000" /> Get started
           </motion.button>
         </div>
       </motion.div>

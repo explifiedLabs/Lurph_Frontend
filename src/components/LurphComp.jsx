@@ -948,7 +948,7 @@ const HeroSection = () => {
         <div className="flex-1 max-w-[520px] w-full flex flex-col gap-0">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="mb-5 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border w-fit text-[10px] font-black uppercase tracking-[0.3em]" style={{ background: "rgba(255,214,0,0.08)", color: Y, borderColor: `${Y}30` }}>
             <motion.span className="w-1.5 h-1.5 rounded-full" style={{ background: Y }} animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1.5, repeat: Infinity }} />
-            AI-Native · 150+ Connectors
+            AI-Native · 150+ Integrations
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
@@ -985,10 +985,6 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <motion.div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10" animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity }}>
-        <span className="text-zinc-700 text-[10px] uppercase tracking-widest">Scroll</span>
-        <div className="w-px h-10 rounded-full" style={{ background: `linear-gradient(to bottom, ${Y}80, transparent)` }} />
-      </motion.div>
     </section>
   );
 };
@@ -1260,7 +1256,7 @@ const IntegrationsSection = () => {
             <span className="text-zinc-700">whole stack.</span>
           </h2>
           <p className="text-zinc-500 mt-6 max-w-lg mx-auto text-lg">
-            Connect to 150+ apps with one click. No API keys, no webhooks, no
+            Connect to 150+ integrations with one click. No API keys, no webhooks, no
             headaches.
           </p>
         </motion.div>
@@ -1281,7 +1277,7 @@ const IntegrationsSection = () => {
           className="text-center mt-10"
         >
           <button className="text-zinc-500 hover:text-white text-sm font-medium transition-colors flex items-center gap-2 mx-auto">
-            View all 150+ integrations <IArrow size={14} color="currentColor" />
+            View all Integrations <IArrow size={14} color="currentColor" />
           </button>
         </motion.div>
       </div>

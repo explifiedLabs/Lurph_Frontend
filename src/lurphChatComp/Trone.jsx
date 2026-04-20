@@ -15,11 +15,6 @@ function Trone() {
     <div className="flex relative text-white h-screen bg-[#050505] overflow-hidden">
       {/* Animated Background with Multiple Layers */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Animated Gradient Orbs - Changed to Warm Yellow/Amber glows */}
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-yellow-500/10 rounded-full blur-[120px] animate-float-slow" />
-        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-amber-600/5 rounded-full blur-[150px] animate-float-slower" />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-yellow-200/5 rounded-full blur-[100px] animate-pulse-slow" />
-
         {/* Grid Pattern Overlay - Changed from Cyan to subtle Yellow-Gold */}
         <div
           className="absolute inset-0 opacity-[0.05]"

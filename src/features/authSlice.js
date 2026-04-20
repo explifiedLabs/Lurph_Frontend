@@ -110,6 +110,7 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.error = null;
       state.keyStatus = {};
+      localStorage.removeItem('token');
     },
     clearError: (state) => {
       state.error = null;
@@ -124,6 +125,7 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loadingEmail = false;
         state.user = action.payload.user ?? action.payload;
+        if (action.payload.token) localStorage.setItem('token', action.payload.token);
         state.isAuthenticated = true;
       })
       .addCase(loginUser.rejected,  (state, action) => {
@@ -136,6 +138,7 @@ const authSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loadingEmail = false;
         state.user = action.payload.user ?? action.payload;
+        if (action.payload.token) localStorage.setItem('token', action.payload.token);
         state.isAuthenticated = true;
       })
       .addCase(registerUser.rejected,  (state, action) => {
@@ -148,6 +151,7 @@ const authSlice = createSlice({
       .addCase(googleLogin.fulfilled, (state, action) => {
         state.loadingGoogle = false;
         state.user = action.payload.user ?? action.payload;
+        if (action.payload.token) localStorage.setItem('token', action.payload.token);
         state.isAuthenticated = true;
       })
       .addCase(googleLogin.rejected,  (state, action) => {
@@ -161,12 +165,14 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.error = null;
         state.keyStatus = {};
+        localStorage.removeItem('token');
       })
       // Even if logout request fails, clear local state
       .addCase(logoutUser.rejected, (state) => {
         state.user = null;
         state.isAuthenticated = false;
         state.keyStatus = {};
+        localStorage.removeItem('token');
       })
 
       // ── fetchMe ───────────────────────────────────────────────────────────
@@ -180,6 +186,7 @@ const authSlice = createSlice({
         state.loadingUser = false;
         state.user = null;
         state.isAuthenticated = false;
+        localStorage.removeItem('token');
       })
 
       // ── API Key status ────────────────────────────────────────────────────

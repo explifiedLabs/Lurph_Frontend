@@ -1,4 +1,26 @@
 import { useRef, useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { handleCTAClick } from "../utils/authNavigate";
+import {
+  FiZap,
+  FiMessageSquare,
+  FiGithub,
+  FiMail,
+  FiDatabase,
+  FiHeart,
+  FiBookmark,
+  FiShare2,
+  FiCheck,
+  FiArrowRight,
+  FiClock,
+  FiFilter,
+  FiCode,
+  FiLink,
+  FiGlobe,
+  FiStar,
+  FiPlay,
+} from "react-icons/fi";
 import {
   motion,
   useScroll,
@@ -12,128 +34,23 @@ import {
 const Y = "#FFD600";
 
 // ─── MINI SVG ICONS ───────────────────────────────────────────────────────────
-const Ic = ({ d, size = 18, color = "currentColor", fill = "none" }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill={fill}
-    stroke={color}
-    strokeWidth={1.5}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    {[].concat(d).map((p, i) => (
-      <path key={i} d={p} />
-    ))}
-  </svg>
-);
-const IZap = (p) => <Ic {...p} d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />;
-const ISlack = (p) => (
-  <Ic
-    {...p}
-    d={[
-      "M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z",
-      "M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z",
-      "M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z",
-      "M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z",
-      "M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z",
-      "M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z",
-      "M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z",
-      "M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z",
-    ]}
-  />
-);
-const IGithub = (p) => (
-  <Ic
-    {...p}
-    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
-  />
-);
-const IMail = (p) => (
-  <Ic
-    {...p}
-    d={[
-      "M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z",
-      "m22 7-10 7L2 7",
-    ]}
-  />
-);
-const IDB = (p) => (
-  <Ic
-    {...p}
-    d={[
-      "M12 2C7 2 3 3.34 3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5c0-1.66-4-3-9-3z",
-      "M3 12c0 1.66 4 3 9 3s9-1.34 9-3",
-    ]}
-  />
-);
-const ICardHeart = (p) => (
-  <svg width={p.size || 14} height={p.size || 14} viewBox="0 0 24 24" fill={p.fill || "none"} stroke={p.color || "currentColor"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-  </svg>
-);
-const ICardBookmark = (p) => (
-  <svg width={p.size || 14} height={p.size || 14} viewBox="0 0 24 24" fill={p.fill || "none"} stroke={p.color || "currentColor"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-  </svg>
-);
-const ICardShare = (p) => (
-  <svg width={p.size || 14} height={p.size || 14} viewBox="0 0 24 24" fill={p.fill || "none"} stroke={p.color || "currentColor"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="18" cy="5" r="3" />
-    <circle cx="6" cy="12" r="3" />
-    <circle cx="18" cy="19" r="3" />
-    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-  </svg>
-);
-const ISearch = (p) => (
-  <Ic
-    {...p}
-    d={["M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14z", "m21 21-4.35-4.35"]}
-  />
-);
-const ICheck = (p) => <Ic {...p} d="M20 6 9 17l-5-5" />;
-const IArrow = (p) => <Ic {...p} d={["M5 12h14", "m12 5 7 7-7 7"]} />;
-const IClock = (p) => (
-  <Ic {...p} d={["M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z", "M12 6v6l4 2"]} />
-);
-const IFilter = (p) => <Ic {...p} d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" />;
-const ICode = (p) => <Ic {...p} d={["m16 18 6-6-6-6", "m8 6-6 6 6 6"]} />;
-const IWebhook = (p) => (
-  <Ic
-    {...p}
-    d="M18 16.98h-5.99c-1.1 0-1.95.68-2.23 1.61-.7 2.24-2.27 3.41-4.78 3.41-2.9 0-5-2.1-5-5s2.1-5 5-5h.6c.44-1.7 2.2-3 4.4-3 2 0 3.7 1.18 4.3 3H18c1.1 0 2 .9 2 2s-.9 2-2 2z"
-  />
-);
-const IGlobe = (p) => (
-  <Ic
-    {...p}
-    d={[
-      "M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z",
-      "M2 12h20",
-      "M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z",
-    ]}
-  />
-);
-const INotion = (p) => (
-  <Ic
-    {...p}
-    d={[
-      "M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z",
-      "M8 8h8M8 12h6M8 16h4",
-    ]}
-  />
-);
-const IStar = (p) => (
-  <Ic
-    {...p}
-    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-  />
-);
-const IPlay = (p) => (
-  <Ic {...p} fill={p.color || "currentColor"} d="M5 3l14 9-14 9V3z" />
-);
+const IZap = FiZap;
+const ISlack = FiMessageSquare;
+const IGithub = FiGithub;
+const IMail = FiMail;
+const IDB = FiDatabase;
+const ICardHeart = FiHeart;
+const ICardBookmark = FiBookmark;
+const ICardShare = FiShare2;
+const ICheck = FiCheck;
+const IArrow = FiArrowRight;
+const IClock = FiClock;
+const IFilter = FiFilter;
+const ICode = FiCode;
+const IWebhook = FiLink;
+const IGlobe = FiGlobe;
+const IStar = FiStar;
+const IPlay = FiPlay;
 
 // ─── NODE PILL ────────────────────────────────────────────────────────────────
 const NodePill = ({
@@ -555,6 +472,8 @@ const Nav = () => {
 
 // ─── SECTION 1: HERO ─────────────────────────────────────────────────────────
 const Hero = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((s) => s.auth);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 50, damping: 20 });
@@ -622,6 +541,7 @@ const Hero = () => {
           className="flex flex-wrap justify-center gap-4 mb-16"
         >
           <motion.button
+            onClick={() => handleCTAClick(navigate, isAuthenticated)}
             whileHover={{ scale: 1.05, boxShadow: `0 20px 50px ${Y}40` }}
             whileTap={{ scale: 0.97 }}
             className="flex items-center gap-2 px-10 py-4 rounded-2xl font-black text-black text-base"
@@ -1307,9 +1227,9 @@ const CommunityWorkflowsSection = () => (
               </div>
               
               <div className="flex items-center gap-3 text-zinc-600">
-                <button className="hover:text-white transition-colors p-1"><ICardHeart size={14} fill="currentColor" color="currentColor" /></button>
-                <button className="hover:text-white transition-colors p-1"><ICardBookmark size={13} fill="currentColor" color="currentColor" /></button>
-                <button className="hover:text-white transition-colors p-1"><ICardShare size={13} fill="currentColor" color="currentColor" /></button>
+                <button className="hover:text-white transition-colors p-1"><ICardHeart size={14} color="currentColor" /></button>
+                <button className="hover:text-white transition-colors p-1"><ICardBookmark size={13} color="currentColor" /></button>
+                <button className="hover:text-white transition-colors p-1"><ICardShare size={13} color="currentColor" /></button>
               </div>
             </div>
           </motion.div>
@@ -1338,6 +1258,7 @@ const CommunityWorkflowsSection = () => (
 
 // ─── SECTION 8: CTA ───────────────────────────────────────────────────────────
 const CTA = () => {
+  const navigate = useNavigate();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -1382,6 +1303,7 @@ const CTA = () => {
         </p>
         <div className="flex flex-wrap justify-center gap-4">
           <motion.button
+            onClick={() => handleCTAClick(navigate, isAuthenticated)}
             whileHover={{ scale: 1.06, boxShadow: `0 24px 70px ${Y}50` }}
             whileTap={{ scale: 0.97 }}
             className="flex items-center gap-2 px-12 py-5 rounded-full font-black text-black text-lg"

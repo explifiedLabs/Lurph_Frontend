@@ -1,9 +1,9 @@
 import React, { useState, useRef, useCallback, useMemo, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Plus, MessageSquare, MoreVertical, Edit,
-  Trash, GitCompare, Workflow, Puzzle,
+  Trash, GitCompare, Workflow, Puzzle, Home, FolderOpen, ChevronRight,
 } from "lucide-react";
 import { FaTools, FaBrain, FaStickyNote } from "react-icons/fa";
 import { FaCompass } from "react-icons/fa6";
@@ -63,7 +63,6 @@ function Tooltip({ label, children }) {
 const TOOL_ITEMS = [
   { label: "Discover", icon: FaCompass, route: "/chat/discover", color: "#3b82f6", desc: "Explore trending topics" },
   { label: "Compare", icon: GitCompare, route: "/chat/compare", color: "#8b5cf6", desc: "Compare AI side-by-side" },
-  { label: "Workflows", icon: Workflow, route: "/chat/workflowpage", color: Y, desc: "Build automated workflows" },
   { label: "Integrations", icon: Puzzle, route: "/chat/integrations", color: "#10b981", desc: "Connect your tools" },
   { label: "Memory", icon: FaBrain, route: "/memory", color: "#f59e0b", desc: "Manage AI memory" },
   { label: "Notes", icon: FaStickyNote, route: "/notes", color: "#ec4899", desc: "Your saved notes" },
@@ -168,8 +167,17 @@ function ChatRow({ item, isActive, onSelect, onDelete, onRename }) {
   const [renaming, setRenaming] = useState(false);
   const [renameVal, setRenameVal] = useState("");
 
-  const title = item?.title || "New conversation";
-  const summary = item?.lastMessage ? item.lastMessage.slice(0, 60) + (item.lastMessage.length > 60 ? "..." : "") : "";
+  const rawTitle = (item?.title || "").trim();
+  const rawSummary = (item?.lastMessage || "").trim();
+  const isGenericTitle = /^new\s+(chat|conversation)$/i.test(rawTitle);
+  const displayTitle = rawTitle && !isGenericTitle
+    ? rawTitle
+    : rawSummary
+      ? rawSummary
+      : "Untitled chat";
+  const summary = rawSummary && rawSummary !== displayTitle
+    ? rawSummary.slice(0, 60) + (rawSummary.length > 60 ? "..." : "")
+    : "";
 
   const handleRenameSave = () => {
     if (renameVal.trim()) onRename(item._id, renameVal.trim());
@@ -211,7 +219,7 @@ function ChatRow({ item, isActive, onSelect, onDelete, onRename }) {
                 className="text-[13px] truncate leading-tight font-medium"
                 style={{ color: isActive ? Y : "#d4d4d8" }}
               >
-                {title}
+                {displayTitle}
               </div>
               {summary && (
                 <div
@@ -272,6 +280,7 @@ export default function ExpliSidebar({ isMobileOpen, setIsMobileOpen }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
 
   // Load chat list on mount
   useEffect(() => {
@@ -386,6 +395,97 @@ export default function ExpliSidebar({ isMobileOpen, setIsMobileOpen }) {
             <div style={{ display: "flex", justifyContent: isExpanded ? "stretch" : "center" }}>
               <ToolsPopover navigate={navigate} isExpanded={isExpanded} />
             </div>
+          </div>
+
+          {/* ── Main Menu ─────────────────────────────────────────── */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 0, padding: "0 8px 4px", flexShrink: 0 }}>
+            {isExpanded ? (
+              <>
+                {/* Menu Header - Expanded */}
+                <button onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  style={{ display: "flex", alignItems: "center", gap: 12, padding: "8px 12px", borderRadius: 8, border: "none", background: "transparent", cursor: "pointer", color: "#a1a1aa", width: "100%", textAlign: "left", justifyContent: "space-between" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.color = "#fff"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#a1a1aa"; }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <Workflow size={15} style={{ flexShrink: 0, color: Y }} />
+                    <span style={{ fontSize: 14, fontWeight: 500 }}>Workflows</span>
+                  </div>
+                  <motion.div
+                    animate={{ rotate: isMenuOpen ? 90 : 0 }}
+                    transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                    style={{ display: "flex", alignItems: "center", color: "#71717a" }}
+                  >
+                    <ChevronRight size={15} />
+                  </motion.div>
+                </button>
+
+                {/* Submenu Items - Expanded */}
+                <AnimatePresence initial={false}>
+                  {isMenuOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                      style={{ overflow: "hidden" }}
+                    >
+                      <motion.div
+                        initial="closed"
+                        animate="open"
+                        exit="closed"
+                        variants={{
+                          open: { transition: { staggerChildren: 0.04, delayChildren: 0.02 } },
+                          closed: { transition: { staggerChildren: 0.03, staggerDirection: -1 } },
+                        }}
+                      >
+                        <motion.div variants={{ open: { y: 0, opacity: 1 }, closed: { y: -4, opacity: 0 } }}>
+                    <button onClick={() => { navigate("/chat/home"); setIsMobileOpen(false); }}
+                      style={{ display: "flex", alignItems: "center", gap: 12, padding: "8px 12px 8px 32px", borderRadius: 0, border: "none", background: "transparent", cursor: "pointer", color: "#a1a1aa", width: "100%", textAlign: "left", fontSize: 13 }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.color = "#fff"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#a1a1aa"; }}
+                    >
+                      <Home size={14} style={{ flexShrink: 0, color: "#71717a" }} />
+                      <span>Home</span>
+                    </button>
+                        </motion.div>
+                        <motion.div variants={{ open: { y: 0, opacity: 1 }, closed: { y: -4, opacity: 0 } }}>
+                    <button onClick={() => { navigate("/chat/projects"); setIsMobileOpen(false); }}
+                      style={{ display: "flex", alignItems: "center", gap: 12, padding: "8px 12px 8px 32px", borderRadius: 0, border: "none", background: "transparent", cursor: "pointer", color: "#a1a1aa", width: "100%", textAlign: "left", fontSize: 13 }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.color = "#fff"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#a1a1aa"; }}
+                    >
+                      <FolderOpen size={14} style={{ flexShrink: 0, color: "#71717a" }} />
+                      <span>Projects</span>
+                    </button>
+                        </motion.div>
+                        <motion.div variants={{ open: { y: 0, opacity: 1 }, closed: { y: -4, opacity: 0 } }}>
+                    <button onClick={() => { navigate("/chat/workflows"); setIsMobileOpen(false); }}
+                      style={{ display: "flex", alignItems: "center", gap: 12, padding: "8px 12px 8px 32px", borderRadius: 0, border: "none", background: "transparent", cursor: "pointer", color: "#a1a1aa", width: "100%", textAlign: "left", fontSize: 13 }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.color = "#fff"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#a1a1aa"; }}
+                    >
+                      <Workflow size={14} style={{ flexShrink: 0, color: Y }} />
+                      <span>Templates</span>
+                    </button>
+                        </motion.div>
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </>
+            ) : (
+              // Collapsed - Show just the Dashboard icon
+              <Tooltip label="Workflow">
+                <button onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  style={{ width: 36, height: 36, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 8, border: "none", background: "transparent", cursor: "pointer", color: Y }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.color = Y; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = Y; }}
+                >
+                  <Workflow size={16} />
+                </button>
+              </Tooltip>
+            )}
           </div>
 
           <div style={{ height: 1, background: "rgba(255,255,255,0.06)", margin: "8px 12px 10px", flexShrink: 0 }} />

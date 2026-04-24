@@ -77,7 +77,11 @@ export default function LoginPage() {
   const returnTo = location.state?.from || "/";
 
   useEffect(() => {
-    if (submitted && isAuthenticated) navigate("/chat");
+    // If user authenticated and submitted, redirect to /chat
+    if (submitted && isAuthenticated) {
+      setSubmitted(false); // Reset so we don't loop
+      navigate("/chat", { replace: true });
+    }
   }, [submitted, isAuthenticated, navigate]);
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router"; // keep as-is per original
 import { motion, AnimatePresence } from "framer-motion";
+import { useSelector } from "react-redux";
 import {
   ChevronDown,
   ArrowRight,
@@ -17,6 +18,7 @@ import {
   Lock,
 } from "lucide-react";
 import { useCMS } from "../../hooks/useCMS.jsx";
+import { handleCTAClick } from "../utils/authNavigate";
 import logo from "../../lurph.png";
 
 const BRAND_YELLOW = "#FFD600";
@@ -299,10 +301,11 @@ const MegaMenu = ({ menuData }) => {
 // ─── MAIN NAVBAR ─────────────────────────────────────────────────────────────
 export default function LurphNavbar() {
   const { data, isLoading } = useCMS();
+  const { isAuthenticated } = useSelector((s) => s.auth);
   const [scrolled, setScrolled] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState(null);
   const location = useLocation();
-   const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
@@ -467,11 +470,7 @@ export default function LurphNavbar() {
 
         {/* CTA */}
         <motion.a
-          onClick={() =>
-            navigate("/login", {
-              state: { from: location.pathname + location.search },
-            })
-          }
+          onClick={() => handleCTAClick(navigate, isAuthenticated)}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="flex items-center gap-2"
@@ -485,6 +484,7 @@ export default function LurphNavbar() {
             fontFamily: "var(--font-syne, inherit)",
             boxShadow: "0 8px 24px rgba(255,214,0,0.22)",
             textDecoration: "none",
+            cursor: "pointer",
           }}
         >
           Get started <ArrowRight size={15} />

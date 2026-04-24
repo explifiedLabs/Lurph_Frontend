@@ -495,7 +495,7 @@ export default function WorkflowsPageComp() {
           </p>
         </div>
         <button
-          onClick={() => navigate("/workflows/new")}
+          onClick={() => navigate("/chat/project/new")}
           className="rounded-xl bg-[#FFD600] px-4 py-2 text-[12.5px] font-semibold text-[#111] transition-opacity hover:opacity-85"
         >
           + New Workflow

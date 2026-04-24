@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { handleCTAClick } from "../utils/authNavigate";
 import {
   loginUser,
   registerUser,
@@ -1408,7 +1409,7 @@ const CardLockOverlay = () => (
   </div>
 );
 // ─── PRICING ──────────────────────────────────────────────────────────────────
-const PricingCard = ({ delay = 0, tier, price, desc, features, highlight = false, ctaLabel = "Get Started", ctaStyle = "default" }) => (
+const PricingCard = ({ delay = 0, tier, price, desc, features, highlight = false, ctaLabel = "Get Started", ctaStyle = "default", onCtaClick }) => (
   <motion.div
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -1436,7 +1437,7 @@ const PricingCard = ({ delay = 0, tier, price, desc, features, highlight = false
           </li>
         ))}
       </ul>
-      <button disabled style={{ marginTop: 32, width: "100%", padding: "13px 0", borderRadius: 10, border: "none", cursor: "not-allowed", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 13, letterSpacing: "0.05em", transition: "all 0.2s", ...(ctaStyle === "primary" ? { background: Y, color: "#000", opacity: 0.85 } : ctaStyle === "outline" ? { background: "transparent", border: `1px solid ${Y}55`, color: Y, opacity: 0.7 } : { background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.4)" }) }}>
+      <button onClick={onCtaClick} style={{ marginTop: 32, width: "100%", padding: "13px 0", borderRadius: 10, border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 13, letterSpacing: "0.05em", transition: "all 0.2s", ...(ctaStyle === "primary" ? { background: Y, color: "#000", opacity: 0.85 } : ctaStyle === "outline" ? { background: "transparent", border: `1px solid ${Y}55`, color: Y, opacity: 0.7 } : { background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.4)" }) }}>
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ marginRight: 5, opacity: 0.5 }}>
           <rect x="2" y="5" width="8" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.2" />
           <path d="M4 5V3.5a2 2 0 1 1 4 0V5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
@@ -1447,21 +1448,28 @@ const PricingCard = ({ delay = 0, tier, price, desc, features, highlight = false
   </motion.div>
 );
 
-const PricingSection = () => (
-  <section className="py-40 px-6" style={{ background: "linear-gradient(to bottom, transparent, rgba(255,214,0,0.015), transparent)" }}>
-    <div className="max-w-6xl mx-auto">
-      <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
-        <p className="text-[11px] font-black uppercase tracking-[0.4em] mb-4" style={{ color: Y }}>Pricing</p>
-        <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none">Start free.<br /><span className="text-zinc-700">Scale forever.</span></h2>
-      </motion.div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <PricingCard delay={0} tier="Starter" price="Free" desc="For solo builders exploring automation." features={["5 active workflows", "500 runs/month", "10 connectors", "Community support"]} ctaLabel="Get Started" ctaStyle="default" />
-        <PricingCard delay={0.1} tier="Pro" price="$29" desc="For teams shipping at speed." features={["Unlimited workflows", "50,000 runs/month", "All 150+ connectors", "AI workflow builder", "Priority support", "Custom triggers"]} highlight ctaLabel="Get Started" ctaStyle="primary" />
-        <PricingCard delay={0.2} tier="Enterprise" price="Custom" desc="For orgs that need control and scale." features={["Unlimited everything", "SLA guarantees", "SSO & audit logs", "Dedicated infrastructure", "Custom AI models", "White-glove onboarding"]} ctaLabel="Talk to Sales" ctaStyle="outline" />
+const PricingSection = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((s) => s.auth);
+  const handleCtaClick = () => {
+    handleCTAClick(navigate, isAuthenticated);
+  };
+  return (
+    <section className="py-40 px-6" style={{ background: "linear-gradient(to bottom, transparent, rgba(255,214,0,0.015), transparent)" }}>
+      <div className="max-w-6xl mx-auto">
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+          <p className="text-[11px] font-black uppercase tracking-[0.4em] mb-4" style={{ color: Y }}>Pricing</p>
+          <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none">Start free.<br /><span className="text-zinc-700">Scale forever.</span></h2>
+        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <PricingCard delay={0} tier="Starter" price="Free" desc="For solo builders exploring automation." features={["5 active workflows", "500 runs/month", "10 connectors", "Community support"]} ctaLabel="Get Started" ctaStyle="default" onCtaClick={handleCtaClick} />
+          <PricingCard delay={0.1} tier="Pro" price="$29" desc="For teams shipping at speed." features={["Unlimited workflows", "50,000 runs/month", "All 150+ connectors", "AI workflow builder", "Priority support", "Custom triggers"]} highlight ctaLabel="Get Started" ctaStyle="primary" onCtaClick={handleCtaClick} />
+          <PricingCard delay={0.2} tier="Enterprise" price="Custom" desc="For orgs that need control and scale." features={["Unlimited everything", "SLA guarantees", "SSO & audit logs", "Dedicated infrastructure", "Custom AI models", "White-glove onboarding"]} ctaLabel="Talk to Sales" ctaStyle="outline" onCtaClick={handleCtaClick} />
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 // ─── TESTIMONIALS ─────────────────────────────────────────────────────────────
 const TestimonialCard = ({ quote, name, role, company, delay }) => (
   <motion.div

@@ -19,6 +19,10 @@ import LurphDynamicPage from "./components/LurphDynamicPages";
 
 import Trone from "./lurphChatComp/Trone";
 import ChatPanel from "./lurphChatComp/lurphChat/ChatPanel";
+import HomeComp from "./lurphChatComp/lurphChat/HomeComp";
+import ProjectsComp from "./lurphChatComp/lurphChat/ProjectsComp";
+import WorkflowsComp from "./lurphChatComp/lurphChat/WorkflowsComp";
+import ProjectCanvas from "./lurphChatComp/lurphChat/projectCanvas/ProjectCanvas";
 import WorkflowsPageComp from "./lurphChatComp/lurphChat/workflowPageComp";
 import IntegrationsPageComp from "./lurphChatComp/lurphChat/IntegrationsComp";
 import LoginPage from "./components/LoginPage";
@@ -148,6 +152,10 @@ function AppRoutes() {
                 }
               >
                 <Route index element={<ChatPanel />} />
+                <Route path="home" element={<HomeComp />} />
+                <Route path="projects" element={<ProjectsComp />} />
+                <Route path="project/:projectId" element={<ProjectCanvas />} />
+                <Route path="workflows" element={<WorkflowsComp />} />
                 <Route path=":chatId" element={<ChatPanel />} />
                 <Route path="workflowpage" element={<WorkflowsPageComp />} />
                 <Route path="integrations" element={<IntegrationsPageComp />} />
